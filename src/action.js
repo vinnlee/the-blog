@@ -12,6 +12,7 @@ import {
   LOGOUT,
   FETCH_COMMENT,
   POST_COMMENT,
+  DELETE_COMMENT,
   UNLOAD
 } from "./actionType";
 
@@ -115,6 +116,17 @@ export const postComment = (slug, comment) => {
       dispatch({
         type: POST_COMMENT,
         payload: data
+      });
+    });
+  };
+};
+
+export const deleteComment = (slug, id) => {
+  return dispatch => {
+    return api.Comments.delete(slug, id).then(() => {
+      dispatch({
+        type: DELETE_COMMENT,
+        payload: id
       });
     });
   };

@@ -3,7 +3,8 @@ import {
   LOAD_SINGLE_ARTICLE,
   UNLOAD,
   FETCH_COMMENT,
-  POST_COMMENT
+  POST_COMMENT,
+  DELETE_COMMENT
 } from "../actionType";
 
 const articlelist = (state = {}, action) => {
@@ -33,6 +34,13 @@ const articlelist = (state = {}, action) => {
       return {
         ...state,
         comments: state.comments.concat([action.payload.comment])
+      };
+    case DELETE_COMMENT:
+      return {
+        ...state,
+        comments: [state.comments].filter(
+          comment => comment.id !== action.payload.id
+        )
       };
     default:
       return state;

@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Icon, Input, Button, Typography } from "antd";
+import { Form, Icon, Input, Button } from "antd";
 import { connect } from "react-redux";
 import { registerUser } from "../action";
 import ErrorList from "./ErrorList";

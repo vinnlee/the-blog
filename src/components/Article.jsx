@@ -3,7 +3,7 @@ import { Spin } from "antd";
 import { connect } from "react-redux";
 import marked from "marked";
 import { setArticles, unloadComponent } from "../action";
-import CommentBox from "./comment/Comment";
+import CommentBox from "./comment";
 
 class TheBlogArticle extends React.Component {
   constructor(props) {

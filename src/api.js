@@ -9,7 +9,8 @@ axios.defaults.baseURL = API_ROOT;
 
 const requests = {
   get: url => axios.get(url, headers).then(responseBody),
-  post: (url, body) => axios.post(url, body, headers).then(responseBody)
+  post: (url, body) => axios.post(url, body, headers).then(responseBody),
+  delete: url => axios.delete(url, headers).then(responseBody)
 };
 
 const Articles = {
@@ -33,7 +34,8 @@ const Auth = {
 
 const Comments = {
   get: slug => requests.get(`/articles/${slug}/comments`),
-  post: (slug, comment) => requests.post(`/articles/${slug}/comments`, comment)
+  post: (slug, comment) => requests.post(`/articles/${slug}/comments`, comment),
+  delete: (slug, id) => requests.delete(`/articles/${slug}/comments/${id}`)
 };
 
 export default { Articles, Auth, Comments };

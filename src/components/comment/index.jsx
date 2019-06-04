@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 
 import CommentForm from "./CommentForm";
 import CommentList from "./CommentList";
-import { getCommentList, postComment } from "../../action";
+import { getCommentList, postComment, deleteComment } from "../../action";
 
 class CommentBox extends React.Component {
   constructor(props) {
@@ -39,6 +39,10 @@ class CommentBox extends React.Component {
     });
   };
 
+  handleDelete = (slug, id) => {
+    this.props.deleteComment(slug, id);
+  };
+
   render() {
     const comments = !!this.props.comments ? this.props.comments : [];
     if (!this.props.isLogIn) {
@@ -68,10 +72,17 @@ class CommentBox extends React.Component {
               Be the first one who comments to this article.
             </p>
           )}
-          {comments.length > 0 && <CommentList comments={comments} />}
+          {comments.length > 0 && (
+            <CommentList
+              currentUser={this.props.user}
+              slug={this.props.slug}
+              comments={comments}
+              onDelete={this.handleDelete}
+            />
+          )}
         </div>
         <div className="comment-form">
-          <h2 className="comment-form__title">Leave a comment</h2>
+          <h2 className="comment-form__title">Say something nice</h2>
           <Comment
             avatar={userAvatar}
             content={
@@ -97,7 +108,8 @@ const mapStatetoProps = state => ({
 const mapDispatchToProps = dispacth => {
   return {
     commentList: slug => dispacth(getCommentList(slug)),
-    postComment: (slug, comment) => dispacth(postComment(slug, comment))
+    postComment: (slug, comment) => dispacth(postComment(slug, comment)),
+    deleteComment: (slug, id) => dispacth(deleteComment(slug, id))
   };
 };
 
