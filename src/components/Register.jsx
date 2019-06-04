@@ -18,12 +18,7 @@ class SignupForm extends React.Component {
     const { getFieldDecorator } = this.props.form;
     return (
       <Form onSubmit={this.handleSubmit} className="the-form">
-        <Typography.Title
-          level={2}
-          style={{ textAlign: "center", textTransform: "uppercase" }}
-        >
-          Sign up
-        </Typography.Title>
+        <h1 className="form-title">Sign up</h1>
         {!!this.props.invalid && <ErrorList items={this.props.invalid} />}
         <Form.Item>
           {getFieldDecorator("email", {
@@ -62,7 +57,7 @@ class SignupForm extends React.Component {
           )}
         </Form.Item>
         <Form.Item>
-          <Button type="primary" htmlType="submit" className="the-form-button">
+          <Button type="primary" htmlType="submit" className="the-form__button">
             Sign up
           </Button>
         </Form.Item>

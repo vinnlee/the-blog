@@ -10,6 +10,8 @@ import {
   REGISTER_FAIL,
   LOAD_SINGLE_ARTICLE,
   LOGOUT,
+  FETCH_COMMENT,
+  POST_COMMENT,
   UNLOAD
 } from "./actionType";
 
@@ -93,6 +95,28 @@ export const fetchUser = () => {
           payload: error.response.data.errors
         });
       });
+  };
+};
+
+export const getCommentList = slug => {
+  return dispatch => {
+    return api.Comments.get(slug).then(data => {
+      dispatch({
+        type: FETCH_COMMENT,
+        payload: data
+      });
+    });
+  };
+};
+
+export const postComment = (slug, comment) => {
+  return dispatch => {
+    return api.Comments.post(slug, comment).then(data => {
+      dispatch({
+        type: POST_COMMENT,
+        payload: data
+      });
+    });
   };
 };
 

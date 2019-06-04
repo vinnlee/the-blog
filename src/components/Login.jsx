@@ -25,12 +25,7 @@ class LoginForm extends React.Component {
     const { getFieldDecorator } = this.props.form;
     return (
       <Form onSubmit={this.handleSubmit} className="the-form">
-        <Typography.Title
-          level={2}
-          style={{ textAlign: "center", textTransform: "uppercase" }}
-        >
-          Login
-        </Typography.Title>
+        <h1 className="form-title">Login</h1>
         {!!this.props.invalid && <ErrorList items={this.props.invalid} />}
         <Form.Item>
           {getFieldDecorator("email", {
@@ -60,7 +55,7 @@ class LoginForm extends React.Component {
           )}
         </Form.Item>
         <Form.Item>
-          <Button type="primary" htmlType="submit" className="the-form-button">
+          <Button type="primary" htmlType="submit" className="the-form__button">
             Log in
           </Button>
           Or <Link to="/register">register now!</Link>

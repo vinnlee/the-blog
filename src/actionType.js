@@ -5,4 +5,6 @@ export const REGISTER_FAIL = "REGISTER_FAIL";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_INVALID = "LOGIN_INVALID";
 export const LOGOUT = "LOGOUT";
+export const FETCH_COMMENT = "FETCH_COMMENT";
+export const POST_COMMENT = "POST_COMMENT";
 export const UNLOAD = "UNLOAD";

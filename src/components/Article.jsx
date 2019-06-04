@@ -1,10 +1,9 @@
 import React from "react";
-import { Typography, Spin } from "antd";
+import { Spin } from "antd";
 import { connect } from "react-redux";
 import marked from "marked";
 import { setArticles, unloadComponent } from "../action";
-
-const { Title } = Typography;
+import CommentBox from "./comment/Comment";
 
 class TheBlogArticle extends React.Component {
   constructor(props) {
@@ -31,10 +30,9 @@ class TheBlogArticle extends React.Component {
     const md = { __html: marked(article.body, { sanitize: true }) };
     return (
       <div className="wrap">
-        <div style={{ textAlign: "center" }}>
-          <Title level={2}>{article.title}</Title>
-        </div>
+        <h2 className="page-title">{article.title}</h2>
         <div className="page-content" dangerouslySetInnerHTML={md} />
+        <CommentBox slug={this.props.match.params.slug} />
       </div>
     );
   }

@@ -24,6 +24,9 @@ const TheBlogHeader = props => {
           defaultSelectedKeys={[activeNav]}
           style={{ lineHeight: "64px", float: "right" }}
         >
+          <Menu.Item key="home">
+            <Link to="/">Home</Link>
+          </Menu.Item>
           <Menu.Item key="setting">
             <Link to="/setting">Setting</Link>
           </Menu.Item>

@@ -1,4 +1,10 @@
-import { LOAD_ARTICLES, LOAD_SINGLE_ARTICLE, UNLOAD } from "../actionType";
+import {
+  LOAD_ARTICLES,
+  LOAD_SINGLE_ARTICLE,
+  UNLOAD,
+  FETCH_COMMENT,
+  POST_COMMENT
+} from "../actionType";
 
 const articlelist = (state = {}, action) => {
   switch (action.type) {
@@ -17,6 +23,17 @@ const articlelist = (state = {}, action) => {
       };
     case UNLOAD:
       return {};
+    case FETCH_COMMENT:
+      const { comments } = action.payload;
+      return {
+        ...state,
+        comments
+      };
+    case POST_COMMENT:
+      return {
+        ...state,
+        comments: state.comments.concat([action.payload.comment])
+      };
     default:
       return state;
   }

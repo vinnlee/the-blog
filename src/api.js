@@ -31,4 +31,9 @@ const Auth = {
   currentUser: () => requests.get("/user")
 };
 
-export default { Articles, Auth };
+const Comments = {
+  get: slug => requests.get(`/articles/${slug}/comments`),
+  post: (slug, comment) => requests.post(`/articles/${slug}/comments`, comment)
+};
+
+export default { Articles, Auth, Comments };
