@@ -11,7 +11,7 @@ import { fetchUser } from "../action";
 import { getToken } from "../helper/localStorage";
 
 import "antd/dist/antd.css";
-import "../styles.css";
+import "../styles.scss";
 
 class App extends React.Component {
   componentDidMount() {
