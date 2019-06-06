@@ -1,16 +1,10 @@
 import React from "react";
-import { List, Avatar, Icon, Spin } from "antd";
+import { List, Avatar, Spin } from "antd";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
 import { setArticles } from "../action";
-
-const IconText = ({ type, text }) => (
-  <span>
-    <Icon type={type} style={{ marginRight: 8 }} />
-    {text}
-  </span>
-);
+import IconText from "./IconText";
 
 class TheBlogArticleList extends React.Component {
   constructor(props) {
@@ -29,22 +23,35 @@ class TheBlogArticleList extends React.Component {
     }
     return (
       <List
+        className="article-list"
         itemLayout="vertical"
-        size="large"
         dataSource={articles}
         pagination={{
-          onChange: page => {
-            console.log(page);
-          },
-          pageSize: 10
+          // onChange: page => {
+          //   console.log(page);
+          // },
+          pageSize: 15
         }}
         renderItem={article => (
           <List.Item
             key={article.title}
-            actions={[<IconText type="star-o" text={article.favoritesCount} />]}
+            actions={[
+              <IconText
+                type="calendar"
+                text={new Date(article.updatedAt).toLocaleDateString()}
+              />,
+              <IconText type="star-o" text={article.favoritesCount} />,
+              <IconText
+                type="tags"
+                text={
+                  !!article.tagList.length ? article.tagList : "Uncategorized"
+                }
+              />
+            ]}
           >
             <List.Item.Meta
-              avatar={<Avatar src={article.author.image} />}
+              avatar={<Avatar src={article.author.image} size="large" />}
+              description={`by ${article.author.username}`}
               title={
                 <Link to={`/articles/${article.slug}`}>{article.title}</Link>
               }

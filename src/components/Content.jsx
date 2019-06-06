@@ -9,14 +9,12 @@ import TheBlogArticle from "../components/Article";
 import TheBlogSetting from "../components/Setting";
 import PrivateRoute from "./PrivateRoute";
 
-import "antd/dist/antd.css";
-
 const { Content } = Layout;
 
 const TheBLogContent = () => {
   return (
-    <Content style={{ padding: 20 }}>
-      <div style={{ padding: "24px 24px 70px" }}>
+    <Content className="content">
+      <div style={{ paddingBottom: 70 }} className="wrapper">
         <Switch>
           <Route exact path="/" component={TheBlogArticleList} />
           <Route path="/login" component={TheBlogLogin} />

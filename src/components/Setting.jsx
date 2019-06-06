@@ -46,6 +46,7 @@ class SettingForm extends React.Component {
         labelAlign="left"
         style={{ maxWidth: 800, margin: "0 auto" }}
       >
+        <h1 className="form-title">Setting</h1>
         <Form.Item label="Email:">
           {getFieldDecorator("email", {
             initialValue: user.email,
@@ -98,7 +99,6 @@ class SettingForm extends React.Component {
 const TheBlogSetting = Form.create({ name: "setting_form" })(SettingForm);
 
 const mapStateToProps = state => {
-  console.log(state, "state");
   return {
     user: state.authentication.user
   };

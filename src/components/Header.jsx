@@ -1,13 +1,17 @@
 import React from "react";
-import { Layout, Menu, Icon, Avatar } from "antd";
-import { Link, withRouter } from "react-router-dom";
+import { Layout, Icon, Avatar } from "antd";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import Media from "react-media";
+
+import DesktopMenu from "./menu/DesktopMenu";
+import MobileMenu from "./menu/MobileMenu";
 
 const { Header } = Layout;
 
 const TheBlogHeader = props => {
-  const pathName = props.location.pathname.match(/\/(\w+)/);
-  const activeNav = !!pathName ? pathName[1] : "home";
+  // const pathName = props.location.pathname.match(/\/(\w+)/);
+  // const activeNav = !!pathName ? pathName[1] : "home";
 
   if (props.isLogIn) {
     const avatar = props.user.image ? (
@@ -16,48 +20,32 @@ const TheBlogHeader = props => {
       <Avatar size={35} icon="user" />
     );
     return (
-      <Header>
-        <div className="avatar">{avatar}</div>
-        <Menu
-          theme="dark"
-          mode="horizontal"
-          defaultSelectedKeys={[activeNav]}
-          style={{ lineHeight: "64px", float: "right" }}
-        >
-          <Menu.Item key="home">
-            <Link to="/">Home</Link>
-          </Menu.Item>
-          <Menu.Item key="setting">
-            <Link to="/setting">Setting</Link>
-          </Menu.Item>
-          <Menu.Item key="login">
-            <Link to="/login">Log out</Link>
-          </Menu.Item>
-        </Menu>
+      <Header className="header">
+        <div className="wrapper">
+          <div className="avatar">{avatar}</div>
+          <Media query="(max-width: 767px)">
+            {matches =>
+              matches ? (
+                <MobileMenu isLogIn={props.isLogIn} />
+              ) : (
+                <DesktopMenu isLogIn={props.isLogIn} />
+              )
+            }
+          </Media>
+        </div>
       </Header>
     );
   }
   return (
-    <Header>
-      <div className="logo">
-        <Icon type="github" />
+    <Header className="header">
+      <div className="wrapper">
+        <div className="logo">
+          <Icon type="github" />
+        </div>
+        <Media query="(max-width: 767px)">
+          {matches => (matches ? <MobileMenu /> : <DesktopMenu />)}
+        </Media>
       </div>
-      <Menu
-        theme="dark"
-        mode="horizontal"
-        defaultSelectedKeys={[activeNav]}
-        style={{ lineHeight: "64px", float: "right" }}
-      >
-        <Menu.Item key="home">
-          <Link to="/">Home</Link>
-        </Menu.Item>
-        <Menu.Item key="login">
-          <Link to="/login">Login</Link>
-        </Menu.Item>
-        <Menu.Item key="register">
-          <Link to="/register">Sign up</Link>
-        </Menu.Item>
-      </Menu>
     </Header>
   );
 };

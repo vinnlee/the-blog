@@ -14,7 +14,7 @@ const requests = {
 };
 
 const Articles = {
-  all: () => requests.get(`/articles?limit=40`),
+  all: () => requests.get(`/articles?limit=70`),
   get: slug => requests.get(`/articles/${slug}`)
 };
 
