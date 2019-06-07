@@ -8,4 +8,5 @@ export const LOGOUT = "LOGOUT";
 export const FETCH_COMMENT = "FETCH_COMMENT";
 export const POST_COMMENT = "POST_COMMENT";
 export const DELETE_COMMENT = "DELETE_COMMENT";
+export const UPDATE_SETTING = "UPDATE_SETTING";
 export const UNLOAD = "UNLOAD";

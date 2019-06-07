@@ -1,19 +1,32 @@
 import React from "react";
-import { Form, Input, Button, Spin } from "antd";
+import { Form, Input, Button, Spin, notification, Icon } from "antd";
 import { connect } from "react-redux";
+import { updateSetting } from "../action";
 
 class SettingForm extends React.Component {
+  state = {
+    success: false
+  };
+
   handleSubmit = e => {
     e.preventDefault();
-    this.props.form.validateFields((err, values) => {
+    this.props.form.validateFields((err, user) => {
       if (!err) {
-        console.log("Received values of form: ", values);
+        this.props.updateSetting(user).then(this.alertSuccess);
       }
     });
   };
 
+  alertSuccess = () => {
+    notification.open({
+      message: "Setting",
+      description: "Your setting is updated succesfully!",
+      icon: <Icon type="info-circle" theme="twoTone" />,
+      duration: 2.5 // time in seconds
+    });
+  };
+
   render() {
-    console.log(this.props.user, "props");
     const { getFieldDecorator } = this.props.form;
     const formItemLayout = {
       labelCol: {
@@ -63,7 +76,7 @@ class SettingForm extends React.Component {
           })(<Input placeholder="Email" />)}
         </Form.Item>
         <Form.Item label="Username:">
-          {getFieldDecorator("userName", {
+          {getFieldDecorator("username", {
             initialValue: user.username,
             rules: [
               {
@@ -72,6 +85,9 @@ class SettingForm extends React.Component {
               }
             ]
           })(<Input placeholder="Username" />)}
+        </Form.Item>
+        <Form.Item label="New password:">
+          <Input />
         </Form.Item>
         <Form.Item label="Avatar: ">
           <Input
@@ -106,5 +122,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  null
+  { updateSetting }
 )(TheBlogSetting);

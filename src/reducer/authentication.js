@@ -3,18 +3,18 @@ import {
   REGISTER_FAIL,
   LOGIN_SUCCESS,
   LOGIN_INVALID,
-  LOGOUT
+  LOGOUT,
+  UPDATE_SETTING
 } from "../actionType";
 
 const authentication = (state = {}, action) => {
   switch (action.type) {
     case REGISTER_SUCCESS:
     case LOGIN_SUCCESS:
-      const { user } = action.payload;
       return {
         ...state,
         isLogIn: true,
-        user
+        user: action.payload.user
       };
     case REGISTER_FAIL:
     case LOGIN_INVALID:
@@ -25,6 +25,11 @@ const authentication = (state = {}, action) => {
       };
     case LOGOUT:
       return {};
+    case UPDATE_SETTING:
+      return {
+        ...state,
+        user: action.payload.user
+      };
     default:
       return state;
   }

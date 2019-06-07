@@ -13,7 +13,8 @@ import {
   FETCH_COMMENT,
   POST_COMMENT,
   DELETE_COMMENT,
-  UNLOAD
+  UNLOAD,
+  UPDATE_SETTING
 } from "./actionType";
 
 export const setArticles = (single = false, slug = "") => {
@@ -127,6 +128,17 @@ export const deleteComment = (slug, id) => {
       dispatch({
         type: DELETE_COMMENT,
         payload: id
+      });
+    });
+  };
+};
+
+export const updateSetting = user => {
+  return dispatch => {
+    return api.Auth.updateSetting(user).then(data => {
+      dispatch({
+        type: UPDATE_SETTING,
+        payload: data
       });
     });
   };

@@ -2,15 +2,15 @@ import axios from "axios";
 import authHeader from "./helper/authHeader";
 
 const API_ROOT = "https://conduit.productionready.io/api";
-const headers = authHeader();
 const responseBody = res => res.data;
 
 axios.defaults.baseURL = API_ROOT;
 
 const requests = {
-  get: url => axios.get(url, headers).then(responseBody),
-  post: (url, body) => axios.post(url, body, headers).then(responseBody),
-  delete: url => axios.delete(url, headers).then(responseBody)
+  get: url => axios.get(url, authHeader()).then(responseBody),
+  post: (url, body) => axios.post(url, body, authHeader()).then(responseBody),
+  delete: url => axios.delete(url, authHeader()).then(responseBody),
+  put: (url, body) => axios.put(url, body, authHeader()).then(responseBody)
 };
 
 const Articles = {
@@ -29,7 +29,8 @@ const Auth = {
       user: { email, password }
     });
   },
-  currentUser: () => requests.get("/user")
+  currentUser: () => requests.get("/user"),
+  updateSetting: user => requests.put("/user", { user })
 };
 
 const Comments = {

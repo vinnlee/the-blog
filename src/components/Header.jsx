@@ -14,7 +14,7 @@ const TheBlogHeader = props => {
   // const activeNav = !!pathName ? pathName[1] : "home";
 
   if (props.isLogIn) {
-    const avatar = props.user.image ? (
+    const avatar = !!props.user.image ? (
       <Avatar src={props.user.image} />
     ) : (
       <Avatar size={35} icon="user" />
