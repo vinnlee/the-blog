@@ -160,7 +160,6 @@ body {
 
 .comment {
   &-list {
-    margin-bottom: 20px;
     @media screen and (max-width: 767px) {
       padding: 0;
     }
@@ -175,9 +174,26 @@ body {
       text-align: center;
     }
   }
-  &-form__title {
-    margin-bottom: 0;
-    @extend %pacifico;
+  &-form {
+    margin-top: 30px;
+    .ant-comment-content-detail .ant-row:last-child {
+      margin-bottom: 0;
+    }
+    &__title {
+      margin-bottom: 0;
+      @extend %pacifico;
+    }
+  }
+}
+
+.profile {
+  text-align: center;
+  &-avatar {
+    margin-bottom: 15px;
+  }
+  &-bio {
+    width: 90%;
+    margin: 0 auto;
   }
 }
 

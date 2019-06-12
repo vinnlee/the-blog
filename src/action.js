@@ -127,7 +127,9 @@ export const deleteComment = (slug, id) => {
     return api.Comments.delete(slug, id).then(() => {
       dispatch({
         type: DELETE_COMMENT,
-        payload: id
+        payload: {
+          commentId: id
+        }
       });
     });
   };

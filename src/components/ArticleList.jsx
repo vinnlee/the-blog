@@ -51,7 +51,14 @@ class TheBlogArticleList extends React.Component {
           >
             <List.Item.Meta
               avatar={<Avatar src={article.author.image} size="large" />}
-              description={`by ${article.author.username}`}
+              description={
+                <React.Fragment>
+                  by{" "}
+                  <Link to={`/@${article.author.username}`}>
+                    {article.author.username}
+                  </Link>
+                </React.Fragment>
+              }
               title={
                 <Link to={`/articles/${article.slug}`}>{article.title}</Link>
               }

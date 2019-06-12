@@ -66,6 +66,20 @@ class CommentBox extends React.Component {
     );
     return (
       <div className="comment">
+        <div className="comment-form">
+          <h2 className="comment-form__title">Say something nice</h2>
+          <Comment
+            avatar={userAvatar}
+            content={
+              <CommentForm
+                onChange={this.handleChange}
+                onSubmit={this.handleSubmit}
+                // submitting={submitting}
+                value={body}
+              />
+            }
+          />
+        </div>
         <div className="comment-list">
           {comments.length === 0 && (
             <p className="no-comment">
@@ -80,20 +94,6 @@ class CommentBox extends React.Component {
               onDelete={this.handleDelete}
             />
           )}
-        </div>
-        <div className="comment-form">
-          <h2 className="comment-form__title">Say something nice</h2>
-          <Comment
-            avatar={userAvatar}
-            content={
-              <CommentForm
-                onChange={this.handleChange}
-                onSubmit={this.handleSubmit}
-                // submitting={submitting}
-                value={body}
-              />
-            }
-          />
         </div>
       </div>
     );

@@ -7,6 +7,7 @@ import TheBlogLogin from "../components/Login";
 import TheBlogSignup from "../components/Register";
 import TheBlogArticle from "../components/Article";
 import TheBlogSetting from "../components/Setting";
+import UserProfile from "../components/Profile";
 import PrivateRoute from "./PrivateRoute";
 
 const { Content } = Layout;
@@ -20,6 +21,7 @@ const TheBLogContent = () => {
           <Route path="/login" component={TheBlogLogin} />
           <Route path="/register" component={TheBlogSignup} />
           <Route path="/articles/:slug" component={TheBlogArticle} />
+          <Route path="/@:username" component={UserProfile} />
           <PrivateRoute path="/setting" component={TheBlogSetting} />
         </Switch>
       </div>

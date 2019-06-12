@@ -25,21 +25,20 @@ const articlelist = (state = {}, action) => {
     case UNLOAD:
       return {};
     case FETCH_COMMENT:
-      const { comments } = action.payload;
       return {
         ...state,
-        comments
+        comments: action.payload.comments
       };
     case POST_COMMENT:
       return {
         ...state,
-        comments: state.comments.concat([action.payload.comment])
+        comments: [action.payload.comment, ...state.comments]
       };
     case DELETE_COMMENT:
       return {
         ...state,
-        comments: [state.comments].filter(
-          comment => comment.id !== action.payload.id
+        comments: [...state.comments].filter(
+          comment => comment.id !== action.payload.commentId
         )
       };
     default:
