@@ -1,7 +1,9 @@
 import React from "react";
 import { Form, Input, Button, Spin, notification, Icon } from "antd";
 import { connect } from "react-redux";
-import { updateSetting } from "../action";
+import api from "../api";
+import { dispatchRequest } from "../action";
+import { UPDATE_SETTING } from "../actionType";
 
 class SettingForm extends React.Component {
   state = {
@@ -12,7 +14,9 @@ class SettingForm extends React.Component {
     e.preventDefault();
     this.props.form.validateFields((err, user) => {
       if (!err) {
-        this.props.updateSetting(user).then(this.alertSuccess);
+        this.props
+          .dispatchRequest(UPDATE_SETTING, api.Auth.updateSetting(user))
+          .then(this.alertSuccess);
       }
     });
   };
@@ -122,5 +126,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { updateSetting }
+  { dispatchRequest }
 )(TheBlogSetting);

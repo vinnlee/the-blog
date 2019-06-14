@@ -9,8 +9,7 @@ const ErrorList = props => {
           type="warning"
           style={{ fontSize: 18, color: "#ffc107", marginRight: 5 }}
         />
-        <span style={{ textTransform: "capitalize" }}>{item}</span>{" "}
-        {props.items[item]}
+        {item.charAt(0).toUpperCase() + item.slice(1)} {props.items[item]}.
       </li>
     );
   });

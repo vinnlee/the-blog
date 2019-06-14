@@ -2,14 +2,15 @@ import React from "react";
 import { List, Avatar, Spin } from "antd";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-
-import { setArticles } from "../action";
+import api from "../api";
+import { dispatchRequest } from "../action";
+import { LOAD_ARTICLES } from "../actionType";
 import IconText from "./IconText";
 
 class TheBlogArticleList extends React.Component {
   constructor(props) {
     super(props);
-    this.props.setArticles();
+    this.props.dispatchRequest(LOAD_ARTICLES, api.Articles.all());
   }
 
   render() {
@@ -79,5 +80,5 @@ const mapStatetoProps = state => {
 
 export default connect(
   mapStatetoProps,
-  { setArticles }
+  { dispatchRequest }
 )(TheBlogArticleList);

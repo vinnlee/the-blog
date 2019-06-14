@@ -1,23 +1,23 @@
 import {
-  REGISTER_SUCCESS,
-  REGISTER_FAIL,
-  LOGIN_SUCCESS,
-  LOGIN_INVALID,
+  REGISTER,
+  LOGIN,
   LOGOUT,
-  UPDATE_SETTING
+  UPDATE_SETTING,
+  FETCH_USERINFO,
+  AUTH_ERROR
 } from "../actionType";
 
 const authentication = (state = {}, action) => {
   switch (action.type) {
-    case REGISTER_SUCCESS:
-    case LOGIN_SUCCESS:
+    case REGISTER:
+    case LOGIN:
+    case FETCH_USERINFO:
       return {
         ...state,
         isLogIn: true,
         user: action.payload.user
       };
-    case REGISTER_FAIL:
-    case LOGIN_INVALID:
+    case AUTH_ERROR:
       return {
         ...state,
         isLogIn: false,

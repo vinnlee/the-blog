@@ -3,20 +3,24 @@ import { Form, Icon, Input, Button } from "antd";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import ErrorList from "./ErrorList";
-
-import { loginUser, logoutUser } from "../action";
+import api from "../api";
+import { dispatchRequest, dispatchAction } from "../action";
+import { LOGIN, LOGOUT } from "../actionType";
 
 class LoginForm extends React.Component {
   constructor(props) {
     super(props);
-    this.props.logout();
+    this.props.dispatchAction(LOGOUT);
   }
 
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFields((err, user) => {
       if (!err) {
-        this.props.submitForm(user);
+        this.props.dispatchRequest(
+          LOGIN,
+          api.Auth.login(user.email, user.password)
+        );
       }
     });
   };
@@ -73,14 +77,7 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    submitForm: user => dispatch(loginUser(user)),
-    logout: () => dispatch(logoutUser())
-  };
-};
-
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  { dispatchRequest, dispatchAction }
 )(TheBlogLogin);

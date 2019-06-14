@@ -2,7 +2,9 @@ import React from "react";
 import { Spin } from "antd";
 import { connect } from "react-redux";
 import marked from "marked";
-import { setArticles, unloadComponent } from "../action";
+import api from "../api";
+import { dispatchRequest } from "../action";
+import { LOAD_SINGLE_ARTICLE, UNLOAD } from "../actionType";
 import CommentBox from "./comment";
 import IconText from "./IconText";
 
@@ -12,11 +14,14 @@ class TheBlogArticle extends React.Component {
     const {
       match: { params }
     } = this.props;
-    this.props.loadArticle(true, params.slug);
+    this.props.dispatchRequest(
+      LOAD_SINGLE_ARTICLE,
+      api.Articles.get(params.slug)
+    );
   }
 
   componentWillUnmount() {
-    this.props.unloadArticle();
+    this.props.dispatchRequest(UNLOAD);
   }
 
   render() {
@@ -57,14 +62,7 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    loadArticle: (single, slug) => dispatch(setArticles(single, slug)),
-    unloadArticle: () => dispatch(unloadComponent())
-  };
-};
-
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  { dispatchRequest }
 )(TheBlogArticle);

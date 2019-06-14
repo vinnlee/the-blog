@@ -1,7 +1,9 @@
 import React from "react";
 import { Form, Icon, Input, Button } from "antd";
 import { connect } from "react-redux";
-import { registerUser } from "../action";
+import api from "../api";
+import { dispatchRequest } from "../action";
+import { REGISTER } from "../actionType";
 import ErrorList from "./ErrorList";
 
 class SignupForm extends React.Component {
@@ -9,7 +11,10 @@ class SignupForm extends React.Component {
     e.preventDefault();
     this.props.form.validateFields((err, user) => {
       if (!err) {
-        this.props.registerUser(user);
+        this.props.dispatchRequest(
+          REGISTER,
+          api.Auth.register(user.username, user.email, user.password)
+        );
       }
     });
   };
@@ -69,7 +74,6 @@ class SignupForm extends React.Component {
 const TheBlogSignup = Form.create({ name: "signup_form" })(SignupForm);
 
 const mapStateToProps = state => {
-  console.log(state.authentication.error);
   return {
     invalid: state.authentication.error
   };
@@ -77,5 +81,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { registerUser }
+  { dispatchRequest }
 )(TheBlogSignup);

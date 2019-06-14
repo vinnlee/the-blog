@@ -5,7 +5,9 @@ import { connect } from "react-redux";
 
 import CommentForm from "./CommentForm";
 import CommentList from "./CommentList";
-import { getCommentList, postComment, deleteComment } from "../../action";
+import api from "../../api";
+import { dispatchRequest } from "../../action";
+import { FETCH_COMMENT, POST_COMMENT, DELETE_COMMENT } from "../../actionType";
 
 class CommentBox extends React.Component {
   constructor(props) {
@@ -15,7 +17,10 @@ class CommentBox extends React.Component {
       body: ""
     };
 
-    this.props.commentList(this.props.slug);
+    this.props.dispatchRequest(
+      FETCH_COMMENT,
+      api.Comments.get(this.props.slug)
+    );
   }
 
   handleSubmit = () => {
@@ -28,9 +33,12 @@ class CommentBox extends React.Component {
       body: ""
     });
 
-    this.props.postComment(this.props.slug, {
-      comment: { body: this.state.body }
-    });
+    this.props.dispatchRequest(
+      POST_COMMENT,
+      api.Comments.post(this.props.slug, {
+        comment: { body: this.state.body }
+      })
+    );
   };
 
   handleChange = e => {
@@ -40,7 +48,9 @@ class CommentBox extends React.Component {
   };
 
   handleDelete = (slug, id) => {
-    this.props.deleteComment(slug, id);
+    this.props.dispatchRequest(DELETE_COMMENT, api.Comments.delete(slug, id), {
+      commentId: id
+    });
   };
 
   render() {
@@ -105,15 +115,7 @@ const mapStatetoProps = state => ({
   comments: state.articlelist.comments
 });
 
-const mapDispatchToProps = dispacth => {
-  return {
-    commentList: slug => dispacth(getCommentList(slug)),
-    postComment: (slug, comment) => dispacth(postComment(slug, comment)),
-    deleteComment: (slug, id) => dispacth(deleteComment(slug, id))
-  };
-};
-
 export default connect(
   mapStatetoProps,
-  mapDispatchToProps
+  { dispatchRequest }
 )(CommentBox);
