@@ -3,14 +3,18 @@ import { List, Avatar, Spin } from "antd";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import api from "../api";
-import { dispatchRequest } from "../action";
-import { LOAD_ARTICLES } from "../actionType";
+import { dispatchRequest, dispatchAction } from "../action";
+import { FETCH_ARTICLES, UNLOAD } from "../actionType";
 import IconText from "./IconText";
 
 class TheBlogArticleList extends React.Component {
   constructor(props) {
     super(props);
-    this.props.dispatchRequest(LOAD_ARTICLES, api.Articles.all());
+    this.props.dispatchRequest(FETCH_ARTICLES, api.Articles.all());
+  }
+
+  componentWillUnmount() {
+    this.props.dispatchAction(UNLOAD);
   }
 
   render() {
@@ -80,5 +84,5 @@ const mapStatetoProps = state => {
 
 export default connect(
   mapStatetoProps,
-  { dispatchRequest }
+  { dispatchRequest, dispatchAction }
 )(TheBlogArticleList);

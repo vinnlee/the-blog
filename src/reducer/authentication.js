@@ -2,7 +2,7 @@ import {
   REGISTER,
   LOGIN,
   LOGOUT,
-  UPDATE_SETTING,
+  UPDATE_USER,
   FETCH_USERINFO,
   AUTH_ERROR
 } from "../actionType";
@@ -25,7 +25,7 @@ const authentication = (state = {}, action) => {
       };
     case LOGOUT:
       return {};
-    case UPDATE_SETTING:
+    case UPDATE_USER:
       return {
         ...state,
         user: action.payload.user

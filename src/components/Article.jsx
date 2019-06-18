@@ -1,10 +1,10 @@
 import React from "react";
 import { Spin } from "antd";
 import { connect } from "react-redux";
-import marked from "marked";
+import Showdown from "showdown";
 import api from "../api";
-import { dispatchRequest } from "../action";
-import { LOAD_SINGLE_ARTICLE, UNLOAD } from "../actionType";
+import { dispatchRequest, dispatchAction } from "../action";
+import { FETCH_ARTICLE, UNLOAD } from "../actionType";
 import CommentBox from "./comment";
 import IconText from "./IconText";
 
@@ -14,14 +14,18 @@ class TheBlogArticle extends React.Component {
     const {
       match: { params }
     } = this.props;
-    this.props.dispatchRequest(
-      LOAD_SINGLE_ARTICLE,
-      api.Articles.get(params.slug)
-    );
+    this.props.dispatchRequest(FETCH_ARTICLE, api.Articles.get(params.slug));
+
+    this.converter = new Showdown.Converter({
+      tables: true,
+      simplifiedAutoLink: true,
+      strikethrough: true,
+      tasklists: true
+    });
   }
 
   componentWillUnmount() {
-    this.props.dispatchRequest(UNLOAD);
+    this.props.dispatchAction(UNLOAD);
   }
 
   render() {
@@ -33,7 +37,7 @@ class TheBlogArticle extends React.Component {
         </div>
       );
     }
-    const md = { __html: marked(article.body, { sanitize: true }) };
+    const md = { __html: this.converter.makeHtml(article.body) };
     return (
       <div className="wrap">
         <h2 className="post-title">{article.title}</h2>
@@ -64,5 +68,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { dispatchRequest }
+  { dispatchRequest, dispatchAction }
 )(TheBlogArticle);

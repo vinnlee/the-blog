@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Chivo&display=swap');
 
-%pacifico {
-  font-family: 'Pacifico', cursive;
+%titlefont {
+  font-family: 'Chivo', sans-serif;
 }
 
 body {
@@ -88,8 +88,9 @@ body {
   &-title {
     text-align: center;
     font-size: 45px;
+    margin-top: 20px;
     margin-bottom: 22px;
-    @extend %pacifico;
+    @extend %titlefont;
   }
   &-meta {
     border-top: 1px solid #e2e2e2;
@@ -113,6 +114,14 @@ body {
       border-bottom: 1px solid #e2e2e2;
       border-top: 2px solid #e2e2e2;
       box-sizing: content-box;
+    }
+  }
+  &-editor {
+    .react-mde {
+      line-height: 1.5;
+    }
+    .has-error .react-mde {
+      border: 1px solid #f5222d;
     }
   }
 }
@@ -139,8 +148,9 @@ body {
 .form-title {
   font-size: 60px;
   text-align: center;
+  margin-top: 20px;
   margin-bottom: 25px;
-  @extend %pacifico;
+  @extend %titlefont;
 }
 
 .article-list {
@@ -166,7 +176,7 @@ body {
     &__title {
       font-size: 30px;
       margin: 0;
-      @extend %pacifico;
+      @extend %titlefont;
     }
     .no-comment {
       margin-bottom: 0;
@@ -181,7 +191,7 @@ body {
     }
     &__title {
       margin-bottom: 0;
-      @extend %pacifico;
+      @extend %titlefont;
     }
   }
 }

@@ -3,7 +3,7 @@ import { Form, Input, Button, Spin, notification, Icon } from "antd";
 import { connect } from "react-redux";
 import api from "../api";
 import { dispatchRequest } from "../action";
-import { UPDATE_SETTING } from "../actionType";
+import { UPDATE_USER } from "../actionType";
 
 class SettingForm extends React.Component {
   state = {
@@ -15,7 +15,7 @@ class SettingForm extends React.Component {
     this.props.form.validateFields((err, user) => {
       if (!err) {
         this.props
-          .dispatchRequest(UPDATE_SETTING, api.Auth.updateSetting(user))
+          .dispatchRequest(UPDATE_USER, api.Auth.updateUser(user))
           .then(this.alertSuccess);
       }
     });

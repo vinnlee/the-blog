@@ -15,7 +15,8 @@ const requests = {
 
 const Articles = {
   all: () => requests.get(`/articles?limit=70`),
-  get: slug => requests.get(`/articles/${slug}`)
+  get: slug => requests.get(`/articles/${slug}`),
+  post: article => requests.post("/articles", article)
 };
 
 const Auth = {
@@ -30,7 +31,7 @@ const Auth = {
     });
   },
   currentUser: () => requests.get("/user"),
-  updateSetting: user => requests.put("/user", { user })
+  updateUser: user => requests.put("/user", { user })
 };
 
 const Comments = {

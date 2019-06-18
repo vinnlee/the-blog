@@ -1,22 +1,24 @@
 import {
-  LOAD_ARTICLES,
-  LOAD_SINGLE_ARTICLE,
+  FETCH_ARTICLES,
+  FETCH_ARTICLE,
   UNLOAD,
   FETCH_COMMENT,
   POST_COMMENT,
-  DELETE_COMMENT
+  DELETE_COMMENT,
+  POST_ARTICLE
 } from "../actionType";
 
 const articlelist = (state = {}, action) => {
   switch (action.type) {
-    case LOAD_ARTICLES:
+    case FETCH_ARTICLES:
       const { articles, articlesCount } = action.payload;
       return {
         ...state,
         articles,
         articlesCount
       };
-    case LOAD_SINGLE_ARTICLE:
+    case FETCH_ARTICLE:
+    case POST_ARTICLE:
       const { article } = action.payload;
       return {
         ...state,

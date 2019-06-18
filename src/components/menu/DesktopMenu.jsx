@@ -1,5 +1,5 @@
 import React from "react";
-import { Menu } from "antd";
+import { Menu, Icon } from "antd";
 import { Link } from "react-router-dom";
 
 const DesktopMenu = props => {
@@ -13,13 +13,28 @@ const DesktopMenu = props => {
         className="desktop-menu"
       >
         <Menu.Item key="home">
-          <Link to="/">Home</Link>
+          <Link to="/">
+            <Icon type="home" theme="filled" />
+            Home
+          </Link>
+        </Menu.Item>
+        <Menu.Item key="newpost">
+          <Link to="/newpost">
+            <Icon type="form" />
+            New post
+          </Link>
         </Menu.Item>
         <Menu.Item key="setting">
-          <Link to="/setting">Setting</Link>
+          <Link to="/setting">
+            <Icon type="setting" theme="filled" />
+            Setting
+          </Link>
         </Menu.Item>
         <Menu.Item key="login">
-          <Link to="/login">Log Out</Link>
+          <Link to="/login">
+            <Icon type="logout" />
+            Log Out
+          </Link>
         </Menu.Item>
       </Menu>
     );
@@ -34,13 +49,22 @@ const DesktopMenu = props => {
       className="desktop-menu"
     >
       <Menu.Item key="home">
-        <Link to="/">Home</Link>
+        <Link to="/">
+          <Icon type="home" theme="filled" />
+          Home
+        </Link>
       </Menu.Item>
       <Menu.Item key="login">
-        <Link to="/login">Log In</Link>
+        <Link to="/login">
+          <Icon type="login" />
+          Log In
+        </Link>
       </Menu.Item>
       <Menu.Item key="register">
-        <Link to="/register">Sign Up</Link>
+        <Link to="/register">
+          <Icon type="user-add" />
+          Sign Up
+        </Link>
       </Menu.Item>
     </Menu>
   );

@@ -33,12 +33,13 @@ class LoginForm extends React.Component {
         {!!this.props.invalid && <ErrorList items={this.props.invalid} />}
         <Form.Item>
           {getFieldDecorator("email", {
+            validateTrigger: ["onSubmit"],
             rules: [
               {
                 type: "email",
                 message: "Please enter a valid email address!"
               },
-              { required: true, message: "Please input your email!" }
+              { required: true, message: "Please enter your email!" }
             ]
           })(
             <Input
@@ -49,7 +50,7 @@ class LoginForm extends React.Component {
         </Form.Item>
         <Form.Item>
           {getFieldDecorator("password", {
-            rules: [{ required: true, message: "Please input your password!" }]
+            rules: [{ required: true, message: "Please enter your password!" }]
           })(
             <Input
               prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}

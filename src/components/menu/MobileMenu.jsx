@@ -32,6 +32,9 @@ class MobileMenu extends React.Component {
             <Link to="/" className="mobile-menu__item">
               Home
             </Link>
+            <Link to="/newpost" className="mobile-menu__item">
+              New post
+            </Link>
             <Link to="/setting" className="mobile-menu__item">
               Setting
             </Link>

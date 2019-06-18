@@ -27,6 +27,7 @@ class SignupForm extends React.Component {
         {!!this.props.invalid && <ErrorList items={this.props.invalid} />}
         <Form.Item>
           {getFieldDecorator("email", {
+            validateTrigger: ["onSubmit"],
             rules: [
               {
                 type: "email",
