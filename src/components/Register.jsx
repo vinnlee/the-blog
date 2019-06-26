@@ -1,5 +1,6 @@
 import React from "react";
 import { Form, Icon, Input, Button } from "antd";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import api from "../api";
 import { dispatchRequest } from "../action";
@@ -66,6 +67,7 @@ class SignupForm extends React.Component {
           <Button type="primary" htmlType="submit" className="the-form__button">
             Sign up
           </Button>
+          Or <Link to="/login">log in</Link> if you already have an account.
         </Form.Item>
       </Form>
     );

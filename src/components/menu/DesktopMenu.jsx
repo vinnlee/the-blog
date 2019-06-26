@@ -8,8 +8,8 @@ const DesktopMenu = props => {
       <Menu
         theme="dark"
         mode="horizontal"
-        // defaultSelectedKeys={[activeNav]}
-        selectedKeys={[]}
+        defaultSelectedKeys={[props.activeNav]}
+        selectedKeys={[props.activeNav]}
         className="desktop-menu"
       >
         <Menu.Item key="home">
@@ -44,8 +44,8 @@ const DesktopMenu = props => {
     <Menu
       theme="dark"
       mode="horizontal"
-      // defaultSelectedKeys={[activeNav]}
-      selectedKeys={[]}
+      defaultSelectedKeys={[props.activeNav]}
+      selectedKeys={[props.activeNav]}
       className="desktop-menu"
     >
       <Menu.Item key="home">

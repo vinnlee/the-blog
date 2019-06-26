@@ -1,11 +1,23 @@
 import history from "./helper/history";
 import { saveToken, removeToken } from "./helper/localStorage";
 
-import { LOGIN, REGISTER, LOGOUT, ERROR, AUTH_ERROR } from "./actionType";
+import {
+  LOGIN,
+  REGISTER,
+  LOGOUT,
+  ERROR,
+  AUTH_ERROR,
+  FETCHING
+} from "./actionType";
 
-export function dispatchRequest(actionType, api, extra = {}) {
+export function dispatchRequest(
+  actionType,
+  api,
+  { subType = FETCHING, carrier = {} } = {}
+) {
   return dispatch => {
     if (api && typeof api.then === "function") {
+      dispatch({ type: subType });
       if (actionType === LOGIN || actionType === REGISTER) {
         return api
           .then(data => {
@@ -28,9 +40,9 @@ export function dispatchRequest(actionType, api, extra = {}) {
             data =
               Object.entries(data).length === 0 &&
               data.constructor === Object &&
-              (Object.entries(extra).length !== 0 &&
-                extra.constructor === Object)
-                ? extra
+              (Object.entries(carrier).length !== 0 &&
+                carrier.constructor === Object)
+                ? carrier
                 : data;
             dispatch({
               type: actionType,

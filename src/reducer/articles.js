@@ -5,7 +5,8 @@ import {
   FETCH_COMMENT,
   POST_COMMENT,
   DELETE_COMMENT,
-  POST_ARTICLE
+  POST_ARTICLE,
+  SUBMIT_COMMENT
 } from "../actionType";
 
 const articlelist = (state = {}, action) => {
@@ -34,7 +35,8 @@ const articlelist = (state = {}, action) => {
     case POST_COMMENT:
       return {
         ...state,
-        comments: [action.payload.comment, ...state.comments]
+        comments: [action.payload.comment, ...state.comments],
+        submitting: false
       };
     case DELETE_COMMENT:
       return {
@@ -42,6 +44,11 @@ const articlelist = (state = {}, action) => {
         comments: [...state.comments].filter(
           comment => comment.id !== action.payload.commentId
         )
+      };
+    case SUBMIT_COMMENT:
+      return {
+        ...state,
+        submitting: true
       };
     default:
       return state;

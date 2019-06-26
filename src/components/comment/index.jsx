@@ -7,13 +7,17 @@ import CommentForm from "./CommentForm";
 import CommentList from "./CommentList";
 import api from "../../api";
 import { dispatchRequest } from "../../action";
-import { FETCH_COMMENT, POST_COMMENT, DELETE_COMMENT } from "../../actionType";
+import {
+  FETCH_COMMENT,
+  POST_COMMENT,
+  DELETE_COMMENT,
+  SUBMIT_COMMENT
+} from "../../actionType";
 
 class CommentBox extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // submitting: false,
       body: ""
     };
 
@@ -28,17 +32,19 @@ class CommentBox extends React.Component {
       return;
     }
 
-    this.setState({
-      // submitting: true,
-      body: ""
-    });
-
-    this.props.dispatchRequest(
-      POST_COMMENT,
-      api.Comments.post(this.props.slug, {
-        comment: { body: this.state.body }
-      })
-    );
+    this.props
+      .dispatchRequest(
+        POST_COMMENT,
+        api.Comments.post(this.props.slug, {
+          comment: { body: this.state.body }
+        }),
+        { subType: SUBMIT_COMMENT }
+      )
+      .then(() => {
+        this.setState({
+          body: ""
+        });
+      });
   };
 
   handleChange = e => {
@@ -49,7 +55,7 @@ class CommentBox extends React.Component {
 
   handleDelete = (slug, id) => {
     this.props.dispatchRequest(DELETE_COMMENT, api.Comments.delete(slug, id), {
-      commentId: id
+      carrier: { commentId: id }
     });
   };
 
@@ -68,7 +74,7 @@ class CommentBox extends React.Component {
         </div>
       );
     }
-    const { /*submitting,*/ body } = this.state;
+    const { body } = this.state;
     const userAvatar = !!this.props.user.image ? (
       <Avatar src={this.props.user.image} alt={this.props.user.username} />
     ) : (
@@ -84,7 +90,7 @@ class CommentBox extends React.Component {
               <CommentForm
                 onChange={this.handleChange}
                 onSubmit={this.handleSubmit}
-                // submitting={submitting}
+                submitting={this.props.submitting}
                 value={body}
               />
             }
@@ -112,7 +118,8 @@ class CommentBox extends React.Component {
 
 const mapStatetoProps = state => ({
   ...state.authentication,
-  comments: state.articlelist.comments
+  comments: state.articlelist.comments,
+  submitting: state.articlelist.submitting
 });
 
 export default connect(

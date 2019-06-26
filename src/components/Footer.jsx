@@ -3,6 +3,8 @@ import { Layout } from "antd";
 
 const { Footer } = Layout;
 
-const TheBlogFooter = () => <Footer className="footer">Footer</Footer>;
+const TheBlogFooter = React.memo(() => (
+  <Footer className="footer">Footer</Footer>
+));
 
 export default TheBlogFooter;

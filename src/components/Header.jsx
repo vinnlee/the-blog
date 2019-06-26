@@ -10,8 +10,8 @@ import MobileMenu from "./menu/MobileMenu";
 const { Header } = Layout;
 
 const TheBlogHeader = props => {
-  // const pathName = props.location.pathname.match(/\/(\w+)/);
-  // const activeNav = !!pathName ? pathName[1] : "home";
+  const pathName = props.location.pathname.match(/\/(\w+)/);
+  const activeNav = !!pathName ? pathName[1] : "home";
 
   if (props.isLogIn) {
     const avatar = !!props.user.image ? (
@@ -19,6 +19,7 @@ const TheBlogHeader = props => {
     ) : (
       <Avatar size={35} icon="user" />
     );
+
     return (
       <Header className="header">
         <div className="wrapper">
@@ -28,7 +29,7 @@ const TheBlogHeader = props => {
               matches ? (
                 <MobileMenu isLogIn={props.isLogIn} />
               ) : (
-                <DesktopMenu isLogIn={props.isLogIn} />
+                <DesktopMenu isLogIn={props.isLogIn} activeNav={activeNav} />
               )
             }
           </Media>
@@ -36,6 +37,7 @@ const TheBlogHeader = props => {
       </Header>
     );
   }
+
   return (
     <Header className="header">
       <div className="wrapper">
@@ -43,7 +45,9 @@ const TheBlogHeader = props => {
           <Icon type="github" />
         </div>
         <Media query="(max-width: 767px)">
-          {matches => (matches ? <MobileMenu /> : <DesktopMenu />)}
+          {matches =>
+            matches ? <MobileMenu /> : <DesktopMenu activeNav={activeNav} />
+          }
         </Media>
       </div>
     </Header>

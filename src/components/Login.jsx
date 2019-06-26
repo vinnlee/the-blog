@@ -63,7 +63,7 @@ class LoginForm extends React.Component {
           <Button type="primary" htmlType="submit" className="the-form__button">
             Log in
           </Button>
-          Or <Link to="/register">register now!</Link>
+          Or <Link to="/register">register</Link> if you don't have an account.
         </Form.Item>
       </Form>
     );
