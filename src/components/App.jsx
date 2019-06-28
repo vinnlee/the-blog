@@ -18,7 +18,10 @@ import "../styles.scss";
 class App extends React.Component {
   componentDidMount() {
     if (!!getToken()) {
-      this.props.dispatchRequest(FETCH_USERINFO, api.Auth.currentUser());
+      this.props.dispatchRequest({
+        type: FETCH_USERINFO,
+        getData: api.Auth.currentUser()
+      });
     }
   }
 

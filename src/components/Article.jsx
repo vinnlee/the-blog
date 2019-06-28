@@ -14,7 +14,10 @@ class TheBlogArticle extends React.Component {
     const {
       match: { params }
     } = this.props;
-    this.props.dispatchRequest(FETCH_ARTICLE, api.Articles.get(params.slug));
+    this.props.dispatchRequest({
+      type: FETCH_ARTICLE,
+      getData: api.Articles.get(params.slug)
+    });
 
     this.converter = new Showdown.Converter({
       tables: true,
@@ -25,7 +28,9 @@ class TheBlogArticle extends React.Component {
   }
 
   componentWillUnmount() {
-    this.props.dispatchAction(UNLOAD);
+    this.props.dispatchAction({
+      type: UNLOAD
+    });
   }
 
   render() {

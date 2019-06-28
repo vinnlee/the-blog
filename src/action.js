@@ -10,19 +10,20 @@ import {
   FETCHING
 } from "./actionType";
 
-export function dispatchRequest(
-  actionType,
-  api,
-  { subType = FETCHING, carrier = {} } = {}
-) {
+export function dispatchRequest({
+  type,
+  subType = FETCHING,
+  getData,
+  carrier = {}
+} = {}) {
   return dispatch => {
-    if (api && typeof api.then === "function") {
+    if (getData && typeof getData.then === "function") {
       dispatch({ type: subType });
-      if (actionType === LOGIN || actionType === REGISTER) {
-        return api
+      if (type === LOGIN || type === REGISTER) {
+        return getData
           .then(data => {
             dispatch({
-              type: actionType,
+              type,
               payload: data
             });
             saveToken(data.user.token);
@@ -35,7 +36,7 @@ export function dispatchRequest(
             });
           });
       } else {
-        return api
+        return getData
           .then(data => {
             data =
               Object.entries(data).length === 0 &&
@@ -45,7 +46,7 @@ export function dispatchRequest(
                 ? carrier
                 : data;
             dispatch({
-              type: actionType,
+              type,
               payload: data
             });
           })
@@ -60,7 +61,7 @@ export function dispatchRequest(
   };
 }
 
-export function dispatchAction(actionType) {
-  if (actionType === LOGOUT) removeToken();
-  return { type: actionType };
+export function dispatchAction(type) {
+  if (type === LOGOUT) removeToken();
+  return { type };
 }

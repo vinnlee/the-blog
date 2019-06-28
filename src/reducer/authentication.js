@@ -4,6 +4,7 @@ import {
   LOGOUT,
   UPDATE_USER,
   FETCH_USERINFO,
+  SUBMIT_USERINFO,
   AUTH_ERROR
 } from "../actionType";
 
@@ -28,7 +29,13 @@ const authentication = (state = {}, action) => {
     case UPDATE_USER:
       return {
         ...state,
-        user: action.payload.user
+        user: action.payload.user,
+        updated: true
+      };
+    case SUBMIT_USERINFO:
+      return {
+        ...state,
+        updated: false
       };
     default:
       return state;

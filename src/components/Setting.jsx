@@ -1,9 +1,10 @@
 import React from "react";
-import { Form, Input, Button, Spin, notification, Icon } from "antd";
+import { Form, Input, Button, Spin } from "antd";
 import { connect } from "react-redux";
 import api from "../api";
 import { dispatchRequest } from "../action";
-import { UPDATE_USER } from "../actionType";
+import { UPDATE_USER, SUBMIT_USERINFO } from "../actionType";
+import alertSuccess from "./Alert";
 
 class SettingForm extends React.Component {
   state = {
@@ -14,21 +15,22 @@ class SettingForm extends React.Component {
     e.preventDefault();
     this.props.form.validateFields((err, user) => {
       if (!err) {
-        this.props
-          .dispatchRequest(UPDATE_USER, api.Auth.updateUser(user))
-          .then(this.alertSuccess);
+        this.props.dispatchRequest({
+          type: UPDATE_USER,
+          subType: SUBMIT_USERINFO,
+          getData: api.Auth.updateUser(user)
+        });
       }
     });
   };
 
-  alertSuccess = () => {
-    notification.open({
-      message: "Setting",
-      description: "Your setting is updated succesfully!",
-      icon: <Icon type="info-circle" theme="twoTone" />,
-      duration: 2.5 // time in seconds
-    });
-  };
+  componentDidUpdate(prevProps) {
+    if (this.props.updated !== prevProps.updated) {
+      if (!!this.props.updated) {
+        alertSuccess("Setting", "Your setting is updated succesfully!");
+      }
+    }
+  }
 
   render() {
     const { getFieldDecorator } = this.props.form;
@@ -91,20 +93,22 @@ class SettingForm extends React.Component {
           })(<Input placeholder="Username" />)}
         </Form.Item>
         <Form.Item label="New password:">
-          <Input />
+          {getFieldDecorator("password")(<Input.Password />)}
         </Form.Item>
         <Form.Item label="Avatar: ">
-          <Input
-            placeholder="Place your avatar URL here."
-            defaultValue={user.image}
-          />
+          {getFieldDecorator("image", {
+            initialValue: user.image
+          })(<Input placeholder="Place your avatar URL here." />)}
         </Form.Item>
         <Form.Item label="Biography: ">
-          <Input.TextArea
-            rows={6}
-            placeholder="Write a short paragraph to describe yourself."
-            defaultValue={user.bio}
-          />
+          {getFieldDecorator("bio", {
+            initialValue: user.bio
+          })(
+            <Input.TextArea
+              rows={6}
+              placeholder="Write a short paragraph to describe yourself."
+            />
+          )}
         </Form.Item>
         <Form.Item {...buttonLayout}>
           <Button type="primary" htmlType="submit">
@@ -120,7 +124,8 @@ const TheBlogSetting = Form.create({ name: "setting_form" })(SettingForm);
 
 const mapStateToProps = state => {
   return {
-    user: state.authentication.user
+    user: state.authentication.user,
+    updated: state.authentication.updated
   };
 };
 

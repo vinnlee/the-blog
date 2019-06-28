@@ -6,7 +6,8 @@ import {
   POST_COMMENT,
   DELETE_COMMENT,
   POST_ARTICLE,
-  SUBMIT_COMMENT
+  SUBMIT_COMMENT,
+  SUBMIT_ARTICLE
 } from "../actionType";
 
 const articlelist = (state = {}, action) => {
@@ -49,6 +50,11 @@ const articlelist = (state = {}, action) => {
       return {
         ...state,
         submitting: true
+      };
+    case SUBMIT_ARTICLE:
+      return {
+        ...state,
+        updated: true
       };
     default:
       return state;

@@ -10,11 +10,16 @@ import IconText from "./IconText";
 class TheBlogArticleList extends React.Component {
   constructor(props) {
     super(props);
-    this.props.dispatchRequest(FETCH_ARTICLES, api.Articles.all());
+    this.props.dispatchRequest({
+      type: FETCH_ARTICLES,
+      getData: api.Articles.all()
+    });
   }
 
   componentWillUnmount() {
-    this.props.dispatchAction(UNLOAD);
+    this.props.dispatchAction({
+      type: UNLOAD
+    });
   }
 
   render() {

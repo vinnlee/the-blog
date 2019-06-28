@@ -21,10 +21,10 @@ class CommentBox extends React.Component {
       body: ""
     };
 
-    this.props.dispatchRequest(
-      FETCH_COMMENT,
-      api.Comments.get(this.props.slug)
-    );
+    this.props.dispatchRequest({
+      type: FETCH_COMMENT,
+      getData: api.Comments.get(this.props.slug)
+    });
   }
 
   handleSubmit = () => {
@@ -33,13 +33,13 @@ class CommentBox extends React.Component {
     }
 
     this.props
-      .dispatchRequest(
-        POST_COMMENT,
-        api.Comments.post(this.props.slug, {
+      .dispatchRequest({
+        type: POST_COMMENT,
+        subType: SUBMIT_COMMENT,
+        getData: api.Comments.post(this.props.slug, {
           comment: { body: this.state.body }
-        }),
-        { subType: SUBMIT_COMMENT }
-      )
+        })
+      })
       .then(() => {
         this.setState({
           body: ""
@@ -54,7 +54,9 @@ class CommentBox extends React.Component {
   };
 
   handleDelete = (slug, id) => {
-    this.props.dispatchRequest(DELETE_COMMENT, api.Comments.delete(slug, id), {
+    this.props.dispatchRequest({
+      type: DELETE_COMMENT,
+      getData: api.Comments.delete(slug, id),
       carrier: { commentId: id }
     });
   };

@@ -12,10 +12,10 @@ class SignupForm extends React.Component {
     e.preventDefault();
     this.props.form.validateFields((err, user) => {
       if (!err) {
-        this.props.dispatchRequest(
-          REGISTER,
-          api.Auth.register(user.username, user.email, user.password)
-        );
+        this.props.dispatchRequest({
+          type: REGISTER,
+          getData: api.Auth.register(user.username, user.email, user.password)
+        });
       }
     });
   };

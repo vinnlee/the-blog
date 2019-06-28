@@ -17,10 +17,10 @@ class LoginForm extends React.Component {
     e.preventDefault();
     this.props.form.validateFields((err, user) => {
       if (!err) {
-        this.props.dispatchRequest(
-          LOGIN,
-          api.Auth.login(user.email, user.password)
-        );
+        this.props.dispatchRequest({
+          type: LOGIN,
+          getData: api.Auth.login(user.email, user.password)
+        });
       }
     });
   };
