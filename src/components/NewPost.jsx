@@ -78,8 +78,8 @@ class PostEditor extends React.Component {
   };
 
   componentDidUpdate(prevProps) {
-    if (this.props.updated !== prevProps.updated) {
-      if (!!this.props.updated) {
+    if (this.props.submitting !== prevProps.submitting) {
+      if (!this.props.submitting) {
         alertSuccess("Posted", "Your article has been posted successfully!");
       }
     }
@@ -164,7 +164,11 @@ class PostEditor extends React.Component {
             )}
           </Form.Item>
           <Form.Item className="post-editor__submit">
-            <Button type="primary" htmlType="submit">
+            <Button
+              type="primary"
+              htmlType="submit"
+              loading={this.props.submitting}
+            >
               Publish article
             </Button>
           </Form.Item>
@@ -179,7 +183,7 @@ const NewPost = Form.create({ name: "post_editor" })(PostEditor);
 const mapStateToProps = state => {
   return {
     article: state.articlelist.article,
-    updated: state.articlelist.updated
+    submitting: state.articlelist.submitting
   };
 };
 

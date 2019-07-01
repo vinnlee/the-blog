@@ -24,7 +24,8 @@ const articlelist = (state = {}, action) => {
       const { article } = action.payload;
       return {
         ...state,
-        article
+        article,
+        submitting: false
       };
     case UNLOAD:
       return {};
@@ -47,14 +48,10 @@ const articlelist = (state = {}, action) => {
         )
       };
     case SUBMIT_COMMENT:
-      return {
-        ...state,
-        submitting: true
-      };
     case SUBMIT_ARTICLE:
       return {
         ...state,
-        updated: true
+        submitting: true
       };
     default:
       return state;
