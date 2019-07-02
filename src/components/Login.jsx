@@ -10,7 +10,9 @@ import { LOGIN, LOGOUT } from "../actionType";
 class LoginForm extends React.Component {
   constructor(props) {
     super(props);
-    this.props.dispatchAction(LOGOUT);
+    this.props.dispatchAction({
+      type: LOGOUT
+    });
   }
 
   handleSubmit = e => {

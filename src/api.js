@@ -14,9 +14,10 @@ const requests = {
 };
 
 const Articles = {
-  all: () => requests.get(`/articles?limit=70`),
+  all: () => requests.get("/articles?limit=70"),
   get: slug => requests.get(`/articles/${slug}`),
-  post: article => requests.post("/articles", article)
+  post: article => requests.post("/articles", article),
+  byAuthor: author => requests.get(`/articles?author=${author}&?limit=70`)
 };
 
 const Auth = {
@@ -34,10 +35,14 @@ const Auth = {
   updateUser: user => requests.put("/user", { user })
 };
 
+const Profile = {
+  get: (username) => requests.get(`/profiles/${username}`)
+}
+
 const Comments = {
   get: slug => requests.get(`/articles/${slug}/comments`),
   post: (slug, comment) => requests.post(`/articles/${slug}/comments`, comment),
   delete: (slug, id) => requests.delete(`/articles/${slug}/comments/${id}`)
 };
 
-export default { Articles, Auth, Comments };
+export default { Articles, Auth, Profile, Comments };

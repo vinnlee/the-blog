@@ -23,7 +23,7 @@ class TheBlogArticleList extends React.Component {
   }
 
   render() {
-    const articles = this.props.articles;
+    const { articles } = this.props;
     if (!articles) {
       return (
         <div style={{ textAlign: "center" }}>
@@ -64,13 +64,13 @@ class TheBlogArticleList extends React.Component {
               description={
                 <React.Fragment>
                   by{" "}
-                  <Link to={`/@${article.author.username}`}>
+                  <Link to={`/user/@${article.author.username}`}>
                     {article.author.username}
                   </Link>
                 </React.Fragment>
               }
               title={
-                <Link to={`/articles/${article.slug}`}>{article.title}</Link>
+                <Link to={`/article/${article.slug}`}>{article.title}</Link>
               }
             />
             {article.description}

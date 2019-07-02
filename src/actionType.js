@@ -16,3 +16,4 @@ export const UNLOAD = "UNLOAD";
 export const FETCHING = "FETCHING";
 export const SUBMIT_USERINFO = "SUBMIT_USERINFO";
 export const SUBMIT_ARTICLE = "SUBMIT_ARTICLE";
+export const FETCH_USERPROFILE = "FETCH_USERPROFILE";

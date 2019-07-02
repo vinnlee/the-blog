@@ -21,8 +21,8 @@ const TheBLogContent = () => {
           <Route exact path="/" component={TheBlogArticleList} />
           <Route path="/login" component={TheBlogLogin} />
           <Route path="/register" component={TheBlogSignup} />
-          <Route path="/articles/:slug" component={TheBlogArticle} />
-          <Route path="/@:username" component={UserProfile} />
+          <Route path="/article/:slug" component={TheBlogArticle} />
+          <Route path="/user/@:username" component={UserProfile} />
           <PrivateRoute path="/setting" component={TheBlogSetting} />
           <PrivateRoute path="/newpost" component={NewPost} />
         </Switch>

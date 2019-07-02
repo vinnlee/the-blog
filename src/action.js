@@ -61,7 +61,7 @@ export function dispatchRequest({
   };
 }
 
-export function dispatchAction(type) {
+export function dispatchAction({type}) {
   if (type === LOGOUT) removeToken();
   return { type };
 }

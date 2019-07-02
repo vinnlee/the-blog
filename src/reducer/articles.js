@@ -7,7 +7,8 @@ import {
   DELETE_COMMENT,
   POST_ARTICLE,
   SUBMIT_COMMENT,
-  SUBMIT_ARTICLE
+  SUBMIT_ARTICLE,
+  FETCH_USERPROFILE
 } from "../actionType";
 
 const articlelist = (state = {}, action) => {
@@ -19,6 +20,12 @@ const articlelist = (state = {}, action) => {
         articles,
         articlesCount
       };
+    case FETCH_USERPROFILE:
+      return {
+        ...state,
+        articles: action.payload[1].articles,
+        articlesCount: action.payload[1].articlesCount
+      }
     case FETCH_ARTICLE:
     case POST_ARTICLE:
       const { article } = action.payload;
