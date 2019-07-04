@@ -27,7 +27,7 @@ export function dispatchRequest({
               payload: data
             });
             saveToken(data.user.token);
-            history.push("/setting");
+            history.push("/");
           })
           .catch(error => {
             dispatch({

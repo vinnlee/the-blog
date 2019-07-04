@@ -82,13 +82,13 @@ class UserProfile extends React.Component {
                 description={
                   <React.Fragment>
                     by{" "}
-                    <Link to={`/@${article.author.username}`}>
+                    <Link to={`/profile/@${article.author.username}`}>
                       {article.author.username}
                     </Link>
                   </React.Fragment>
                 }
                 title={
-                  <Link to={`/articles/${article.slug}`}>{article.title}</Link>
+                  <Link to={`/article/${article.slug}`}>{article.title}</Link>
                 }
               />
               {article.description}

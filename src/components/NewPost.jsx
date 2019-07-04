@@ -3,28 +3,46 @@ import { Form, Input, Tag, Icon, Button } from "antd";
 import { connect } from "react-redux";
 import ReactMde from "react-mde";
 import Showdown from "showdown";
-import { dispatchRequest } from "../action";
+import { dispatchRequest, dispatchAction } from "../action";
 import api from "../api";
-import { POST_ARTICLE, SUBMIT_ARTICLE } from "../actionType";
+import {
+  POST_ARTICLE,
+  SUBMIT_ARTICLE,
+  FETCH_ARTICLE,
+  UNLOAD
+} from "../actionType";
 import alertSuccess from "./Alert";
 
 import "react-mde/lib/styles/css/react-mde-all.css";
 
 class PostEditor extends React.Component {
-  state = {
-    content: "",
-    tab: "write",
-    tags: [],
-    showTagInput: false,
-    tagValue: ""
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      title: "",
+      description: "",
+      content: "",
+      tab: "write",
+      tags: [],
+      showTagInput: false,
+      tagValue: ""
+    };
 
-  converter = new Showdown.Converter({
-    tables: true,
-    simplifiedAutoLink: true,
-    strikethrough: true,
-    tasklists: true
-  });
+    this.converter = new Showdown.Converter({
+      tables: true,
+      simplifiedAutoLink: true,
+      strikethrough: true,
+      tasklists: true,
+      simpleLineBreaks: true
+    });
+
+    if (this.props.match.params.slug) {
+      this.props.dispatchRequest({
+        type: FETCH_ARTICLE,
+        getData: api.Articles.get(this.props.match.params.slug)
+      });
+    }
+  }
 
   handleChange = content => {
     this.setState({ content });
@@ -68,10 +86,15 @@ class PostEditor extends React.Component {
       if (!err) {
         const tagList = this.state.tags;
         const formField = tagList.length > 0 ? { ...fields, tagList } : fields;
+        const action = this.props.match.params.slug
+          ? api.Articles.update(this.props.match.params.slug, {
+              article: formField
+            })
+          : api.Articles.post({ article: formField });
         this.props.dispatchRequest({
           type: POST_ARTICLE,
           subType: SUBMIT_ARTICLE,
-          getData: api.Articles.post({ article: formField })
+          getData: action
         });
       }
     });
@@ -83,6 +106,24 @@ class PostEditor extends React.Component {
         alertSuccess("Posted", "Your article has been posted successfully!");
       }
     }
+    if (this.props.article !== prevProps.article) {
+      if (this.props.match.params.slug && !!this.props.article) {
+        this.props.form.setFieldsValue({
+          title: this.props.article.title,
+          description: this.props.article.description,
+          body: this.props.article.body
+        });
+        this.setState({
+          tags: this.props.article.tagList
+        });
+      }
+    }
+  }
+
+  componentWillUnmount() {
+    this.props.dispatchAction({
+      type: UNLOAD
+    });
   }
 
   render() {
@@ -105,7 +146,9 @@ class PostEditor extends React.Component {
     return (
       <div className="post-editor">
         <Form onSubmit={this.handleSubmit}>
-          <h1 className="form-title">Add New Post</h1>
+          <h1 className="form-title">
+            {this.props.match.params.slug ? "Edit Post" : "Add New Post"}
+          </h1>
           <Form.Item className="post-editor__title">
             {getFieldDecorator("title", {
               rules: [{ required: true, message: "Title should not be blank!" }]
@@ -125,7 +168,6 @@ class PostEditor extends React.Component {
           </Form.Item>
           <Form.Item className="Item">
             {getFieldDecorator("body", {
-              initialValue: this.state.content,
               rules: [{ required: true, message: null }]
             })(
               <ReactMde
@@ -169,7 +211,7 @@ class PostEditor extends React.Component {
               htmlType="submit"
               loading={this.props.submitting}
             >
-              Publish article
+              {this.props.match.params.slug ? "Edit" : "Publish"}
             </Button>
           </Form.Item>
         </Form>
@@ -180,14 +222,12 @@ class PostEditor extends React.Component {
 
 const NewPost = Form.create({ name: "post_editor" })(PostEditor);
 
-const mapStateToProps = state => {
-  return {
-    article: state.articlelist.article,
-    submitting: state.articlelist.submitting
-  };
-};
+const mapStateToProps = state => ({
+  article: state.articlelist.article,
+  submitting: state.articlelist.submitting
+});
 
 export default connect(
   mapStateToProps,
-  { dispatchRequest }
+  { dispatchRequest, dispatchAction }
 )(NewPost);

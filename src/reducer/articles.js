@@ -8,7 +8,8 @@ import {
   POST_ARTICLE,
   SUBMIT_COMMENT,
   SUBMIT_ARTICLE,
-  FETCH_USERPROFILE
+  FETCH_USERPROFILE,
+  DELETE_ARTICLE
 } from "../actionType";
 
 const articlelist = (state = {}, action) => {
@@ -27,11 +28,14 @@ const articlelist = (state = {}, action) => {
         articlesCount: action.payload[1].articlesCount
       }
     case FETCH_ARTICLE:
-    case POST_ARTICLE:
-      const { article } = action.payload;
       return {
         ...state,
-        article,
+        article: action.payload.article
+      }
+    case POST_ARTICLE:
+      return {
+        ...state,
+        article: action.payload.article,
         submitting: false
       };
     case UNLOAD:
@@ -54,6 +58,11 @@ const articlelist = (state = {}, action) => {
           comment => comment.id !== action.payload.commentId
         )
       };
+    case DELETE_ARTICLE:
+      return {
+        ...state,
+        redirect: true
+      }
     case SUBMIT_COMMENT:
     case SUBMIT_ARTICLE:
       return {

@@ -1,6 +1,6 @@
 import React from "react";
 import { Layout, Icon, Avatar } from "antd";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import Media from "react-media";
 
@@ -23,7 +23,9 @@ const TheBlogHeader = props => {
     return (
       <Header className="header">
         <div className="wrapper">
-          <div className="avatar">{avatar}</div>
+          <Link to={`/profile/@${props.user.username}`} className="avatar">
+            {avatar}
+          </Link>
           <Media query="(max-width: 767px)">
             {matches =>
               matches ? (

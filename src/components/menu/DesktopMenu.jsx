@@ -19,13 +19,13 @@ const DesktopMenu = props => {
           </Link>
         </Menu.Item>
         <Menu.Item key="newpost">
-          <Link to="/newpost">
+          <Link to="/post/new">
             <Icon type="form" />
             New post
           </Link>
         </Menu.Item>
         <Menu.Item key="setting">
-          <Link to="/setting">
+          <Link to="/user/setting">
             <Icon type="setting" theme="filled" />
             Setting
           </Link>

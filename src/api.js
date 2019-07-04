@@ -17,6 +17,8 @@ const Articles = {
   all: () => requests.get("/articles?limit=70"),
   get: slug => requests.get(`/articles/${slug}`),
   post: article => requests.post("/articles", article),
+  update: (slug, article) => requests.put(`/articles/${slug}`, article),
+  delete: slug => requests.delete(`/articles/${slug}`),
   byAuthor: author => requests.get(`/articles?author=${author}&?limit=70`)
 };
 

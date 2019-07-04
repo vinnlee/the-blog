@@ -1,9 +1,8 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import { connect } from "react-redux";
 import { getToken } from "../helper/localStorage";
 
-const PrivateRoute = ({ component: Component, isLogIn, ...rest }) => {
+const PrivateRoute = ({ component: Component, ...rest }) => {
   const token = getToken();
   return (
     <Route
@@ -24,10 +23,4 @@ const PrivateRoute = ({ component: Component, isLogIn, ...rest }) => {
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    isLogIn: state.authentication.isLogIn
-  };
-};
-
-export default connect(mapStateToProps)(PrivateRoute);
+export default PrivateRoute;

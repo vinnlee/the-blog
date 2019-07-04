@@ -4,27 +4,42 @@ import { connect } from "react-redux";
 import Showdown from "showdown";
 import api from "../api";
 import { dispatchRequest, dispatchAction } from "../action";
-import { FETCH_ARTICLE, UNLOAD } from "../actionType";
+import { FETCH_ARTICLE, UNLOAD, DELETE_ARTICLE } from "../actionType";
+import { Link } from "react-router-dom";
+import history from "../helper/history";
 import CommentBox from "./comment";
 import IconText from "./IconText";
 
 class TheBlogArticle extends React.Component {
   constructor(props) {
     super(props);
-    const {
-      match: { params }
-    } = this.props;
     this.props.dispatchRequest({
       type: FETCH_ARTICLE,
-      getData: api.Articles.get(params.slug)
+      getData: api.Articles.get(this.props.match.params.slug)
     });
 
     this.converter = new Showdown.Converter({
       tables: true,
       simplifiedAutoLink: true,
       strikethrough: true,
-      tasklists: true
+      tasklists: true,
+      simpleLineBreaks: true
     });
+  }
+
+  handleDelete = () => {
+    this.props.dispatchRequest({
+      type: DELETE_ARTICLE,
+      getData: api.Articles.delete(this.props.match.params.slug)
+    });
+  };
+
+  componentDidUpdate(prevProps) {
+    if (this.props.redirect !== prevProps.redirect) {
+      if (this.props.redirect) {
+        history.push(`/profile/@${this.props.currentUser.username}`);
+      }
+    }
   }
 
   componentWillUnmount() {
@@ -57,6 +72,27 @@ class TheBlogArticle extends React.Component {
             type="tags"
             text={!!article.tagList.length ? article.tagList : "Uncategorized"}
           />
+          {this.props.currentUser &&
+            this.props.currentUser.username === article.author.username && (
+              <React.Fragment>
+                <Link to={`/post/edit/${article.slug}`}>
+                  <IconText
+                    type="edit"
+                    text="Edit"
+                    tooltip={true}
+                    title="Edit this article."
+                  />
+                </Link>
+                <span onClick={this.handleDelete}>
+                  <IconText
+                    type="delete"
+                    text="Delete"
+                    tooltip={true}
+                    title="Delete this article."
+                  />
+                </span>
+              </React.Fragment>
+            )}
         </div>
         <div className="post-content" dangerouslySetInnerHTML={md} />
         <CommentBox slug={this.props.match.params.slug} />
@@ -67,7 +103,9 @@ class TheBlogArticle extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    article: state.articlelist.article
+    article: state.articlelist.article,
+    currentUser: state.authentication.user,
+    redirect: state.articlelist.redirect
   };
 };
 

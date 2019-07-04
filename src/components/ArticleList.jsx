@@ -64,7 +64,7 @@ class TheBlogArticleList extends React.Component {
               description={
                 <React.Fragment>
                   by{" "}
-                  <Link to={`/user/@${article.author.username}`}>
+                  <Link to={`/profile/@${article.author.username}`}>
                     {article.author.username}
                   </Link>
                 </React.Fragment>

@@ -22,9 +22,12 @@ const TheBLogContent = () => {
           <Route path="/login" component={TheBlogLogin} />
           <Route path="/register" component={TheBlogSignup} />
           <Route path="/article/:slug" component={TheBlogArticle} />
-          <Route path="/user/@:username" component={UserProfile} />
-          <PrivateRoute path="/setting" component={TheBlogSetting} />
-          <PrivateRoute path="/newpost" component={NewPost} />
+          <Route path="/profile/@:username" component={UserProfile} />
+          <PrivateRoute path="/user/setting" component={TheBlogSetting} />
+          <PrivateRoute
+            path={["/post/new", "/post/edit/:slug"]}
+            component={NewPost}
+          />
         </Switch>
       </div>
     </Content>
