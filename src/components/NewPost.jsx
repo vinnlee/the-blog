@@ -118,6 +118,16 @@ class PostEditor extends React.Component {
         });
       }
     }
+    if (this.props.match.params.slug !== prevProps.match.params.slug) {
+      this.props.form.setFieldsValue({
+        title: "",
+        description: "",
+        body: ""
+      });
+      this.setState({
+        tags: []
+      });
+    }
   }
 
   componentWillUnmount() {
