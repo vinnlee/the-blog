@@ -50,9 +50,14 @@ class TheBlogArticleList extends React.Component {
                 type="calendar"
                 text={new Date(article.updatedAt).toLocaleDateString()}
               />,
-              <IconText type="star-o" text={article.favoritesCount} />,
+              <IconText
+                type="star"
+                theme="filled"
+                text={article.favoritesCount}
+              />,
               <IconText
                 type="tags"
+                theme="filled"
                 text={
                   !!article.tagList.length ? article.tagList : "Uncategorized"
                 }

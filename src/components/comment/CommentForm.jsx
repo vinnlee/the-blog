@@ -4,7 +4,12 @@ import { Form, Button, Input } from "antd";
 const CommentForm = ({ onChange, onSubmit, submitting, value }) => (
   <div>
     <Form.Item>
-      <Input.TextArea rows={4} onChange={onChange} value={value} />
+      <Input.TextArea
+        rows={4}
+        onChange={onChange}
+        value={value}
+        placeholder="Type your thought."
+      />
     </Form.Item>
     <Form.Item>
       <Button
@@ -13,7 +18,7 @@ const CommentForm = ({ onChange, onSubmit, submitting, value }) => (
         onClick={onSubmit}
         type="primary"
       >
-        Add Comment
+        Comment
       </Button>
     </Form.Item>
   </div>

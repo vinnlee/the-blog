@@ -10,14 +10,11 @@ import { FETCH_USERPROFILE, UNLOAD } from "../actionType";
 class UserProfile extends React.Component {
   constructor(props) {
     super(props);
-    const {
-      match: { params }
-    } = this.props;
     this.props.dispatchRequest({
       type: FETCH_USERPROFILE,
       getData: Promise.all([
-        api.Profile.get(params.username),
-        api.Articles.byAuthor(params.username)
+        api.Profile.get(this.props.match.params.username),
+        api.Articles.byAuthor(this.props.match.params.username)
       ])
     });
   }
@@ -26,6 +23,21 @@ class UserProfile extends React.Component {
     this.props.dispatchAction({
       type: UNLOAD
     });
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.match.params.username !== prevProps.match.params.username) {
+      this.props.dispatchAction({
+        type: UNLOAD
+      });
+      this.props.dispatchRequest({
+        type: FETCH_USERPROFILE,
+        getData: Promise.all([
+          api.Profile.get(this.props.match.params.username),
+          api.Articles.byAuthor(this.props.match.params.username)
+        ])
+      });
+    }
   }
 
   render() {
@@ -68,9 +80,14 @@ class UserProfile extends React.Component {
                   type="calendar"
                   text={new Date(article.updatedAt).toLocaleDateString()}
                 />,
-                <IconText type="star-o" text={article.favoritesCount} />,
+                <IconText
+                  type="star"
+                  theme="filled"
+                  text={article.favoritesCount}
+                />,
                 <IconText
                   type="tags"
+                  theme="filled"
                   text={
                     !!article.tagList.length ? article.tagList : "Uncategorized"
                   }

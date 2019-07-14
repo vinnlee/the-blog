@@ -67,9 +67,14 @@ class TheBlogArticle extends React.Component {
             type="calendar"
             text={new Date(article.updatedAt).toLocaleDateString()}
           />
-          <IconText type="star-o" text={article.favoritesCount} />
+          <IconText
+            type="star-o"
+            theme="filled"
+            text={article.favoritesCount}
+          />
           <IconText
             type="tags"
+            theme="filled"
             text={!!article.tagList.length ? article.tagList : "Uncategorized"}
           />
           {this.props.currentUser &&
@@ -101,13 +106,11 @@ class TheBlogArticle extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    article: state.articlelist.article,
-    currentUser: state.authentication.user,
-    redirect: state.articlelist.redirect
-  };
-};
+const mapStateToProps = state => ({
+  article: state.articlelist.article,
+  currentUser: state.authentication.user,
+  redirect: state.articlelist.redirect
+});
 
 export default connect(
   mapStateToProps,

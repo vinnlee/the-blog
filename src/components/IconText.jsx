@@ -1,7 +1,7 @@
 import React from "react";
 import { Icon, Tooltip } from "antd";
 
-const IconText = ({ type, text, tooltip = false, title = "" }) => {
+const IconText = ({ type, text, tooltip = false, title = "", ...rest }) => {
   if (tooltip) {
     return (
       <Tooltip title={title}>
@@ -12,7 +12,7 @@ const IconText = ({ type, text, tooltip = false, title = "" }) => {
   }
   return (
     <span>
-      <Icon type={type} style={{ marginRight: 5 }} />
+      <Icon type={type} style={{ marginRight: 5 }} {...rest} />
       {text}
     </span>
   );
