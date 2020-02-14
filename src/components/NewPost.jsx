@@ -1,31 +1,26 @@
-import React from "react";
-import { Form, Input, Tag, Icon, Button } from "antd";
-import { connect } from "react-redux";
-import ReactMde from "react-mde";
-import Showdown from "showdown";
-import { dispatchRequest, dispatchAction } from "../action";
-import api from "../api";
-import {
-  POST_ARTICLE,
-  SUBMIT_ARTICLE,
-  FETCH_ARTICLE,
-  UNLOAD
-} from "../actionType";
-import alertSuccess from "./Alert";
+import React from 'react';
+import { Form, Input, Tag, Icon, Button } from 'antd';
+import { connect } from 'react-redux';
+import ReactMde from 'react-mde';
+import Showdown from 'showdown';
+import { dispatchRequest, dispatchAction } from '../action';
+import api from '../api';
+import { POST_ARTICLE, SUBMIT_ARTICLE, FETCH_ARTICLE, UNLOAD } from '../actionType';
+import alertSuccess from './Alert';
 
-import "react-mde/lib/styles/css/react-mde-all.css";
+import 'react-mde/lib/styles/css/react-mde-all.css';
 
 class PostEditor extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: "",
-      description: "",
-      content: "",
-      tab: "write",
+      title: '',
+      description: '',
+      content: '',
+      tab: 'write',
       tags: [],
       showTagInput: false,
-      tagValue: ""
+      tagValue: ''
     };
 
     this.converter = new Showdown.Converter({
@@ -44,15 +39,15 @@ class PostEditor extends React.Component {
     }
   }
 
-  handleChange = content => {
+  handleChange = (content) => {
     this.setState({ content });
   };
 
-  handleTabChange = tab => {
+  handleTabChange = (tab) => {
     this.setState({ tab });
   };
 
-  handleTagInputChange = e => {
+  handleTagInputChange = (e) => {
     this.setState({ tagValue: e.target.value });
   };
 
@@ -65,7 +60,7 @@ class PostEditor extends React.Component {
     this.setState({
       tags,
       showTagInput: false,
-      tagValue: ""
+      tagValue: ''
     });
   };
 
@@ -73,14 +68,14 @@ class PostEditor extends React.Component {
     this.setState({ showTagInput: true }, () => this.input.focus());
   };
 
-  handleTagClose = removedTag => {
-    const tags = this.state.tags.filter(tag => tag !== removedTag);
+  handleTagClose = (removedTag) => {
+    const tags = this.state.tags.filter((tag) => tag !== removedTag);
     this.setState({ tags });
   };
 
-  saveTagInputRef = input => (this.input = input);
+  saveTagInputRef = (input) => (this.input = input);
 
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, fields) => {
       if (!err) {
@@ -103,7 +98,7 @@ class PostEditor extends React.Component {
   componentDidUpdate(prevProps) {
     if (this.props.submitting !== prevProps.submitting) {
       if (!this.props.submitting) {
-        alertSuccess("Posted", "Your article has been posted successfully!");
+        alertSuccess('Posted', 'Your article has been posted successfully!');
       }
     }
     if (this.props.article !== prevProps.article) {
@@ -120,9 +115,9 @@ class PostEditor extends React.Component {
     }
     if (this.props.match.params.slug !== prevProps.match.params.slug) {
       this.props.form.setFieldsValue({
-        title: "",
-        description: "",
-        body: ""
+        title: '',
+        description: '',
+        body: ''
       });
       this.setState({
         tags: []
@@ -137,12 +132,12 @@ class PostEditor extends React.Component {
   }
 
   render() {
-    const tagList = this.state.tags.map(tag => {
+    const tagList = this.state.tags.map((tag) => {
       return (
-        <span key={tag} style={{ display: "inline-block" }}>
+        <span key={tag} style={{ display: 'inline-block' }}>
           <Tag
             closable
-            onClose={e => {
+            onClose={(e) => {
               e.preventDefault();
               this.handleTagClose(tag);
             }}
@@ -157,27 +152,20 @@ class PostEditor extends React.Component {
       <div className="post-editor">
         <Form onSubmit={this.handleSubmit}>
           <h1 className="form-title">
-            {this.props.match.params.slug ? "Edit Post" : "Add New Post"}
+            {this.props.match.params.slug ? 'Edit Post' : 'Add New Post'}
           </h1>
           <Form.Item className="post-editor__title">
-            {getFieldDecorator("title", {
-              rules: [{ required: true, message: "Title should not be blank!" }]
+            {getFieldDecorator('title', {
+              rules: [{ required: true, message: 'Title should not be blank!' }]
             })(<Input placeholder="A meaningful title about your article." />)}
           </Form.Item>
           <Form.Item className="post-editor__description">
-            {getFieldDecorator("description", {
-              rules: [
-                { required: true, message: "Description should not be blank!" }
-              ]
-            })(
-              <Input.TextArea
-                rows={4}
-                placeholder="A short description about your article."
-              />
-            )}
+            {getFieldDecorator('description', {
+              rules: [{ required: true, message: 'Description should not be blank!' }]
+            })(<Input.TextArea rows={4} placeholder="A short description about your article." />)}
           </Form.Item>
           <Form.Item className="Item">
-            {getFieldDecorator("body", {
+            {getFieldDecorator('body', {
               rules: [{ required: true, message: null }]
             })(
               <ReactMde
@@ -185,7 +173,7 @@ class PostEditor extends React.Component {
                 onTabChange={this.handleTabChange}
                 minEditorHeight={500}
                 minPreviewHeight={500}
-                generateMarkdownPreview={markdown =>
+                generateMarkdownPreview={(markdown) =>
                   Promise.resolve(this.converter.makeHtml(markdown))
                 }
                 selectedTab={this.state.tab}
@@ -209,19 +197,15 @@ class PostEditor extends React.Component {
             {!this.state.showTagInput && (
               <Tag
                 onClick={this.handleShowTagInput}
-                style={{ background: "#fff", borderStyle: "dashed" }}
+                style={{ background: '#fff', borderStyle: 'dashed' }}
               >
                 <Icon type="plus" /> New tag
               </Tag>
             )}
           </Form.Item>
           <Form.Item className="post-editor__submit">
-            <Button
-              type="primary"
-              htmlType="submit"
-              loading={this.props.submitting}
-            >
-              {this.props.match.params.slug ? "Edit" : "Publish"}
+            <Button type="primary" htmlType="submit" loading={this.props.submitting}>
+              {this.props.match.params.slug ? 'Edit' : 'Publish'}
             </Button>
           </Form.Item>
         </Form>
@@ -230,14 +214,11 @@ class PostEditor extends React.Component {
   }
 }
 
-const NewPost = Form.create({ name: "post_editor" })(PostEditor);
+const NewPost = Form.create({ name: 'post_editor' })(PostEditor);
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   article: state.articlelist.article,
   submitting: state.articlelist.submitting
 });
 
-export default connect(
-  mapStateToProps,
-  { dispatchRequest, dispatchAction }
-)(NewPost);
+export default connect(mapStateToProps, { dispatchRequest, dispatchAction })(NewPost);

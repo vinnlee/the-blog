@@ -1,12 +1,12 @@
-import React from "react";
-import { Icon, Tooltip } from "antd";
+import React from 'react';
+import { Icon, Tooltip } from 'antd';
 
-const IconText = ({ type, text, tooltip = false, title = "", ...rest }) => {
+const IconText = ({ type, text, tooltip = false, title = '', ...rest }) => {
   if (tooltip) {
     return (
       <Tooltip title={title}>
         <Icon type={type} />
-        <span style={{ paddingLeft: 5, cursor: "pointer" }}>{text}</span>
+        <span style={{ paddingLeft: 5, cursor: 'pointer' }}>{text}</span>
       </Tooltip>
     );
   }

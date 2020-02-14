@@ -1,8 +1,8 @@
-import React from "react";
-import { Menu, Icon } from "antd";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Menu, Icon } from 'antd';
+import { Link } from 'react-router-dom';
 
-const DesktopMenu = props => {
+const DesktopMenu = (props) => {
   if (props.isLogIn) {
     return (
       <Menu

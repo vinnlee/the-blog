@@ -1,35 +1,23 @@
-import history from "./helper/history";
-import { saveToken, removeToken } from "./helper/localStorage";
+import history from './helper/history';
+import { saveToken, removeToken } from './helper/localStorage';
 
-import {
-  LOGIN,
-  REGISTER,
-  LOGOUT,
-  ERROR,
-  AUTH_ERROR,
-  FETCHING
-} from "./actionType";
+import { LOGIN, REGISTER, LOGOUT, ERROR, AUTH_ERROR, FETCHING } from './actionType';
 
-export function dispatchRequest({
-  type,
-  subType = FETCHING,
-  getData,
-  carrier = {}
-} = {}) {
-  return dispatch => {
-    if (getData && typeof getData.then === "function") {
+export function dispatchRequest({ type, subType = FETCHING, getData, carrier = {} } = {}) {
+  return (dispatch) => {
+    if (getData && typeof getData.then === 'function') {
       dispatch({ type: subType });
       if (type === LOGIN || type === REGISTER) {
         return getData
-          .then(data => {
+          .then((data) => {
             dispatch({
               type,
               payload: data
             });
             saveToken(data.user.token);
-            history.push("/");
+            history.push('/');
           })
-          .catch(error => {
+          .catch((error) => {
             dispatch({
               type: AUTH_ERROR,
               payload: error.response.data.errors
@@ -37,12 +25,12 @@ export function dispatchRequest({
           });
       } else {
         return getData
-          .then(data => {
+          .then((data) => {
             data =
               Object.entries(data).length === 0 &&
               data.constructor === Object &&
-              (Object.entries(carrier).length !== 0 &&
-                carrier.constructor === Object)
+              Object.entries(carrier).length !== 0 &&
+              carrier.constructor === Object
                 ? carrier
                 : data;
             dispatch({
@@ -50,7 +38,7 @@ export function dispatchRequest({
               payload: data
             });
           })
-          .catch(error => {
+          .catch((error) => {
             dispatch({
               type: ERROR,
               payload: error.response.data.errors
@@ -61,7 +49,7 @@ export function dispatchRequest({
   };
 }
 
-export function dispatchAction({type}) {
+export function dispatchAction({ type }) {
   if (type === LOGOUT) removeToken();
   return { type };
 }

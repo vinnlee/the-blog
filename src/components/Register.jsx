@@ -1,14 +1,14 @@
-import React from "react";
-import { Form, Icon, Input, Button } from "antd";
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import api from "../api";
-import { dispatchRequest } from "../action";
-import { REGISTER } from "../actionType";
-import ErrorList from "./ErrorList";
+import React from 'react';
+import { Form, Icon, Input, Button } from 'antd';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import api from '../api';
+import { dispatchRequest } from '../action';
+import { REGISTER } from '../actionType';
+import ErrorList from './ErrorList';
 
 class SignupForm extends React.Component {
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, user) => {
       if (!err) {
@@ -27,38 +27,38 @@ class SignupForm extends React.Component {
         <h1 className="form-title">Sign up</h1>
         {!!this.props.invalid && <ErrorList items={this.props.invalid} />}
         <Form.Item>
-          {getFieldDecorator("email", {
-            validateTrigger: ["onSubmit"],
+          {getFieldDecorator('email', {
+            validateTrigger: ['onSubmit'],
             rules: [
               {
-                type: "email",
-                message: "Please enter a valid email address!"
+                type: 'email',
+                message: 'Please enter a valid email address!'
               },
-              { required: true, message: "Please input your email!" }
+              { required: true, message: 'Please input your email!' }
             ]
           })(
             <Input
-              prefix={<Icon type="mail" style={{ color: "rgba(0,0,0,.25)" }} />}
+              prefix={<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />}
               placeholder="Email"
             />
           )}
         </Form.Item>
         <Form.Item>
-          {getFieldDecorator("username", {
-            rules: [{ required: true, message: "Please input your username!" }]
+          {getFieldDecorator('username', {
+            rules: [{ required: true, message: 'Please input your username!' }]
           })(
             <Input
-              prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
+              prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
               placeholder="Username"
             />
           )}
         </Form.Item>
         <Form.Item>
-          {getFieldDecorator("password", {
-            rules: [{ required: true, message: "Please input your password!" }]
+          {getFieldDecorator('password', {
+            rules: [{ required: true, message: 'Please input your password!' }]
           })(
             <Input.Password
-              prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
+              prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
               placeholder="Password"
             />
           )}
@@ -74,15 +74,12 @@ class SignupForm extends React.Component {
   }
 }
 
-const TheBlogSignup = Form.create({ name: "signup_form" })(SignupForm);
+const TheBlogSignup = Form.create({ name: 'signup_form' })(SignupForm);
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     invalid: state.authentication.error
   };
 };
 
-export default connect(
-  mapStateToProps,
-  { dispatchRequest }
-)(TheBlogSignup);
+export default connect(mapStateToProps, { dispatchRequest })(TheBlogSignup);

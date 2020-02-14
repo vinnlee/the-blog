@@ -1,11 +1,11 @@
-import React from "react";
-import { Avatar, Typography, Divider, List, Spin } from "antd";
-import IconText from "./IconText";
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import { dispatchRequest, dispatchAction } from "../action";
-import api from "../api";
-import { FETCH_USERPROFILE, UNLOAD } from "../actionType";
+import React from 'react';
+import { Avatar, Typography, Divider, List, Spin } from 'antd';
+import IconText from './IconText';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { dispatchRequest, dispatchAction } from '../action';
+import api from '../api';
+import { FETCH_USERPROFILE, UNLOAD } from '../actionType';
 
 class UserProfile extends React.Component {
   constructor(props) {
@@ -44,7 +44,7 @@ class UserProfile extends React.Component {
     const { articles, profile } = this.props;
     if (!articles && Object.entries(profile).length === 0) {
       return (
-        <div style={{ textAlign: "center" }}>
+        <div style={{ textAlign: 'center' }}>
           <Spin size="large" tip="Loading..." />
         </div>
       );
@@ -59,9 +59,7 @@ class UserProfile extends React.Component {
             <Typography.Title level={3} className="profile-username">
               {profile.username}
             </Typography.Title>
-            <Typography.Paragraph className="profile-bio">
-              {profile.bio}
-            </Typography.Paragraph>
+            <Typography.Paragraph className="profile-bio">{profile.bio}</Typography.Paragraph>
           </div>
         </div>
         <Divider orientation="left" className="divide-line">
@@ -72,7 +70,7 @@ class UserProfile extends React.Component {
           itemLayout="vertical"
           dataSource={articles}
           pagination={{ pageSize: 15 }}
-          renderItem={article => (
+          renderItem={(article) => (
             <List.Item
               key={article.title}
               actions={[
@@ -80,17 +78,11 @@ class UserProfile extends React.Component {
                   type="calendar"
                   text={new Date(article.updatedAt).toLocaleDateString()}
                 />,
-                <IconText
-                  type="star"
-                  theme="filled"
-                  text={article.favoritesCount}
-                />,
+                <IconText type="star" theme="filled" text={article.favoritesCount} />,
                 <IconText
                   type="tags"
                   theme="filled"
-                  text={
-                    !!article.tagList.length ? article.tagList : "Uncategorized"
-                  }
+                  text={!!article.tagList.length ? article.tagList : 'Uncategorized'}
                 />
               ]}
             >
@@ -98,15 +90,13 @@ class UserProfile extends React.Component {
                 avatar={<Avatar src={article.author.image} size="large" />}
                 description={
                   <React.Fragment>
-                    by{" "}
+                    by{' '}
                     <Link to={`/profile/@${article.author.username}`}>
                       {article.author.username}
                     </Link>
                   </React.Fragment>
                 }
-                title={
-                  <Link to={`/article/${article.slug}`}>{article.title}</Link>
-                }
+                title={<Link to={`/article/${article.slug}`}>{article.title}</Link>}
               />
               {article.description}
             </List.Item>
@@ -117,12 +107,9 @@ class UserProfile extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   articles: state.articlelist.articles,
   profile: state.profile
 });
 
-export default connect(
-  mapStateToProps,
-  { dispatchRequest, dispatchAction }
-)(UserProfile);
+export default connect(mapStateToProps, { dispatchRequest, dispatchAction })(UserProfile);

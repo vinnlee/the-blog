@@ -1,5 +1,5 @@
-import React from "react";
-import { notification, Icon } from "antd";
+import React from 'react';
+import { notification, Icon } from 'antd';
 
 const alerSuccess = (
   message,

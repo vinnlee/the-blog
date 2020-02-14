@@ -1,11 +1,11 @@
-import React from "react";
-import { List, Avatar, Spin } from "antd";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import api from "../api";
-import { dispatchRequest, dispatchAction } from "../action";
-import { FETCH_ARTICLES, UNLOAD } from "../actionType";
-import IconText from "./IconText";
+import React from 'react';
+import { List, Avatar, Spin } from 'antd';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import api from '../api';
+import { dispatchRequest, dispatchAction } from '../action';
+import { FETCH_ARTICLES, UNLOAD } from '../actionType';
+import IconText from './IconText';
 
 class TheBlogArticleList extends React.Component {
   constructor(props) {
@@ -26,7 +26,7 @@ class TheBlogArticleList extends React.Component {
     const { articles } = this.props;
     if (!articles) {
       return (
-        <div style={{ textAlign: "center" }}>
+        <div style={{ textAlign: 'center' }}>
           <Spin size="large" tip="Loading..." />
         </div>
       );
@@ -42,25 +42,16 @@ class TheBlogArticleList extends React.Component {
           // },
           pageSize: 15
         }}
-        renderItem={article => (
+        renderItem={(article) => (
           <List.Item
             key={article.title}
             actions={[
-              <IconText
-                type="calendar"
-                text={new Date(article.updatedAt).toLocaleDateString()}
-              />,
-              <IconText
-                type="star"
-                theme="filled"
-                text={article.favoritesCount}
-              />,
+              <IconText type="calendar" text={new Date(article.updatedAt).toLocaleDateString()} />,
+              <IconText type="star" theme="filled" text={article.favoritesCount} />,
               <IconText
                 type="tags"
                 theme="filled"
-                text={
-                  !!article.tagList.length ? article.tagList : "Uncategorized"
-                }
+                text={!!article.tagList.length ? article.tagList : 'Uncategorized'}
               />
             ]}
           >
@@ -68,15 +59,11 @@ class TheBlogArticleList extends React.Component {
               avatar={<Avatar src={article.author.image} size="large" />}
               description={
                 <React.Fragment>
-                  by{" "}
-                  <Link to={`/profile/@${article.author.username}`}>
-                    {article.author.username}
-                  </Link>
+                  by{' '}
+                  <Link to={`/profile/@${article.author.username}`}>{article.author.username}</Link>
                 </React.Fragment>
               }
-              title={
-                <Link to={`/article/${article.slug}`}>{article.title}</Link>
-              }
+              title={<Link to={`/article/${article.slug}`}>{article.title}</Link>}
             />
             {article.description}
           </List.Item>
@@ -86,13 +73,10 @@ class TheBlogArticleList extends React.Component {
   }
 }
 
-const mapStatetoProps = state => {
+const mapStatetoProps = (state) => {
   return {
     articles: state.articlelist.articles
   };
 };
 
-export default connect(
-  mapStatetoProps,
-  { dispatchRequest, dispatchAction }
-)(TheBlogArticleList);
+export default connect(mapStatetoProps, { dispatchRequest, dispatchAction })(TheBlogArticleList);

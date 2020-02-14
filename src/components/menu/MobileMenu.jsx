@@ -1,6 +1,6 @@
-import React from "react";
-import { Icon, Drawer } from "antd";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Icon, Drawer } from 'antd';
+import { Link } from 'react-router-dom';
 
 class MobileMenu extends React.Component {
   state = { visible: false };

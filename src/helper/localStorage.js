@@ -1,13 +1,13 @@
-export const saveToken = token => {
+export const saveToken = (token) => {
   try {
-    localStorage.setItem("jwt", JSON.stringify(token));
+    localStorage.setItem('jwt', JSON.stringify(token));
   } catch (error) {
     //
   }
 };
 export const getToken = () => {
   try {
-    const token = localStorage.getItem("jwt");
+    const token = localStorage.getItem('jwt');
     if (token === null) {
       return undefined;
     }
@@ -19,7 +19,7 @@ export const getToken = () => {
 
 export const removeToken = () => {
   try {
-    localStorage.removeItem("jwt");
+    localStorage.removeItem('jwt');
   } catch (error) {
     //
   }

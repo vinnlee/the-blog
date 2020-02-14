@@ -1,17 +1,17 @@
-import React from "react";
-import { Form, Input, Button, Spin } from "antd";
-import { connect } from "react-redux";
-import api from "../api";
-import { dispatchRequest } from "../action";
-import { UPDATE_USER, SUBMIT_USERINFO } from "../actionType";
-import alertSuccess from "./Alert";
+import React from 'react';
+import { Form, Input, Button, Spin } from 'antd';
+import { connect } from 'react-redux';
+import api from '../api';
+import { dispatchRequest } from '../action';
+import { UPDATE_USER, SUBMIT_USERINFO } from '../actionType';
+import alertSuccess from './Alert';
 
 class SettingForm extends React.Component {
   state = {
     success: false
   };
 
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, user) => {
       if (!err) {
@@ -27,7 +27,7 @@ class SettingForm extends React.Component {
   componentDidUpdate(prevProps) {
     if (this.props.updated !== prevProps.updated) {
       if (!!this.props.updated) {
-        alertSuccess("Setting", "Your setting is updated succesfully!");
+        alertSuccess('Setting', 'Your setting is updated succesfully!');
       }
     }
   }
@@ -53,7 +53,7 @@ class SettingForm extends React.Component {
     const { user } = this.props;
     if (!user) {
       return (
-        <div style={{ textAlign: "center" }}>
+        <div style={{ textAlign: 'center' }}>
           <Spin size="large" tip="Loading..." />
         </div>
       );
@@ -63,51 +63,48 @@ class SettingForm extends React.Component {
         onSubmit={this.handleSubmit}
         {...formItemLayout}
         labelAlign="left"
-        style={{ maxWidth: 800, margin: "0 auto" }}
+        style={{ maxWidth: 800, margin: '0 auto' }}
       >
         <h1 className="form-title">Setting</h1>
         <Form.Item label="Email:">
-          {getFieldDecorator("email", {
+          {getFieldDecorator('email', {
             initialValue: user.email,
             rules: [
               {
-                type: "email",
-                message: "Please enter a valid email address!"
+                type: 'email',
+                message: 'Please enter a valid email address!'
               },
               {
                 required: true,
-                message: "Please input your email!"
+                message: 'Please input your email!'
               }
             ]
           })(<Input placeholder="Email" />)}
         </Form.Item>
         <Form.Item label="Username:">
-          {getFieldDecorator("username", {
+          {getFieldDecorator('username', {
             initialValue: user.username,
             rules: [
               {
                 required: true,
-                message: "Please input your username!"
+                message: 'Please input your username!'
               }
             ]
           })(<Input placeholder="Username" />)}
         </Form.Item>
         <Form.Item label="New password:">
-          {getFieldDecorator("password")(<Input.Password />)}
+          {getFieldDecorator('password')(<Input.Password />)}
         </Form.Item>
         <Form.Item label="Avatar: ">
-          {getFieldDecorator("image", {
+          {getFieldDecorator('image', {
             initialValue: user.image
           })(<Input placeholder="Place your avatar URL here." />)}
         </Form.Item>
         <Form.Item label="Biography: ">
-          {getFieldDecorator("bio", {
+          {getFieldDecorator('bio', {
             initialValue: user.bio
           })(
-            <Input.TextArea
-              rows={6}
-              placeholder="Write a short paragraph to describe yourself."
-            />
+            <Input.TextArea rows={6} placeholder="Write a short paragraph to describe yourself." />
           )}
         </Form.Item>
         <Form.Item {...buttonLayout}>
@@ -120,16 +117,13 @@ class SettingForm extends React.Component {
   }
 }
 
-const TheBlogSetting = Form.create({ name: "setting_form" })(SettingForm);
+const TheBlogSetting = Form.create({ name: 'setting_form' })(SettingForm);
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     user: state.authentication.user,
     updated: state.authentication.updated
   };
 };
 
-export default connect(
-  mapStateToProps,
-  { dispatchRequest }
-)(TheBlogSetting);
+export default connect(mapStateToProps, { dispatchRequest })(TheBlogSetting);

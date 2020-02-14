@@ -1,24 +1,19 @@
-import React from "react";
-import { Comment, Avatar } from "antd";
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
+import React from 'react';
+import { Comment, Avatar } from 'antd';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-import CommentForm from "./CommentForm";
-import CommentList from "./CommentList";
-import api from "../../api";
-import { dispatchRequest } from "../../action";
-import {
-  FETCH_COMMENT,
-  POST_COMMENT,
-  DELETE_COMMENT,
-  SUBMIT_COMMENT
-} from "../../actionType";
+import CommentForm from './CommentForm';
+import CommentList from './CommentList';
+import api from '../../api';
+import { dispatchRequest } from '../../action';
+import { FETCH_COMMENT, POST_COMMENT, DELETE_COMMENT, SUBMIT_COMMENT } from '../../actionType';
 
 class CommentBox extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      body: ""
+      body: ''
     };
 
     this.props.dispatchRequest({
@@ -42,12 +37,12 @@ class CommentBox extends React.Component {
       })
       .then(() => {
         this.setState({
-          body: ""
+          body: ''
         });
       });
   };
 
-  handleChange = e => {
+  handleChange = (e) => {
     this.setState({
       body: e.target.value
     });
@@ -68,8 +63,8 @@ class CommentBox extends React.Component {
         <div className="comment">
           <div className="comment-list">
             <p className="no-comment">
-              Please <Link to="/login">log in</Link> or{" "}
-              <Link to="/register">register</Link> to add comments.
+              Please <Link to="/login">log in</Link> or <Link to="/register">register</Link> to add
+              comments.
             </p>
             {comments.length > 0 && <CommentList comments={comments} />}
           </div>
@@ -100,9 +95,7 @@ class CommentBox extends React.Component {
         </div>
         <div className="comment-list">
           {comments.length === 0 && (
-            <p className="no-comment">
-              Be the first one who comments to this article.
-            </p>
+            <p className="no-comment">Be the first one who comments to this article.</p>
           )}
           {comments.length > 0 && (
             <CommentList
@@ -118,13 +111,10 @@ class CommentBox extends React.Component {
   }
 }
 
-const mapStatetoProps = state => ({
+const mapStatetoProps = (state) => ({
   ...state.authentication,
   comments: state.articlelist.comments,
   submitting: state.articlelist.submitting
 });
 
-export default connect(
-  mapStatetoProps,
-  { dispatchRequest }
-)(CommentBox);
+export default connect(mapStatetoProps, { dispatchRequest })(CommentBox);

@@ -34,6 +34,7 @@ body {
 
 .content {
   padding: 20px;
+
   @media screen and (max-width: 767px) {
     padding-left: 15px;
     padding-right: 15px;
@@ -63,12 +64,14 @@ body {
 .mobile-menu {
   float: right;
   line-height: 64px;
+
   .icon {
     color: #fff;
     font-size: 24px;
     vertical-align: middle;
     cursor: pointer;
   }
+
   &__item {
     display: block;
     padding: 10px 0;
@@ -79,6 +82,7 @@ body {
 .the-form {
   max-width: 450px;
   margin: 0 auto;
+
   &__button {
     width: 100%;
   }
@@ -92,23 +96,30 @@ body {
     margin-bottom: 22px;
     @extend %titlefont;
   }
+
   &-meta {
     border-top: 1px solid #e2e2e2;
     border-bottom: 1px solid #e2e2e2;
     padding: 5px 0;
-    >span, >a {
+
+    >span,
+    >a {
       margin-right: 20px;
+
       @media screen and (max-width: 480px) {
         margin-right: 0;
         display: block;
       }
     }
+
     >a {
       color: inherit;
     }
   }
+
   &-content {
     padding: 25px 0 0;
+
     &:after {
       content: '';
       display: block;
@@ -119,10 +130,12 @@ body {
       box-sizing: content-box;
     }
   }
+
   &-editor {
     .react-mde {
       line-height: 1.5;
     }
+
     .has-error .react-mde {
       border: 1px solid #f5222d;
     }
@@ -137,10 +150,12 @@ body {
   padding: 12px 12px 10px;
   margin-bottom: 24px;
   border-radius: 4px;
+
   ul {
     list-style: none;
     margin: 0;
     padding: 0;
+
     li {
       line-height: 1.7;
       margin-bottom: 3px;
@@ -160,9 +175,11 @@ body {
   .ant-list-item-meta {
     align-items: center;
   }
+
   .ant-list-item-meta-content {
     width: calc(100% - 56px);
   }
+
   .ant-list-item-meta-title {
     margin-bottom: 0;
     white-space: nowrap;
@@ -176,22 +193,27 @@ body {
     @media screen and (max-width: 767px) {
       padding: 0;
     }
+
     &__title {
       font-size: 30px;
       margin: 0;
       @extend %titlefont;
     }
+
     .no-comment {
       margin-bottom: 0;
       margin-top: 20px;
       text-align: center;
     }
   }
+
   &-form {
     margin-top: 30px;
+
     .ant-comment-content-detail .ant-row:last-child {
       margin-bottom: 0;
     }
+
     &__title {
       margin-bottom: 0;
       @extend %titlefont;
@@ -202,9 +224,11 @@ body {
 .profile {
   text-align: center;
   margin-top: 20px;
+
   &-avatar {
     margin-bottom: 15px;
   }
+
   &-bio {
     width: 90%;
     margin: 0 auto;
