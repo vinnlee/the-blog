@@ -6,7 +6,7 @@ import {
   FETCH_USERINFO,
   SUBMIT_USERINFO,
   AUTH_ERROR
-} from "../actionType";
+} from '../actionType';
 
 const authentication = (state = {}, action) => {
   switch (action.type) {

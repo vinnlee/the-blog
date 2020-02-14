@@ -10,7 +10,7 @@ import {
   SUBMIT_ARTICLE,
   FETCH_USERPROFILE,
   DELETE_ARTICLE
-} from "../actionType";
+} from '../actionType';
 
 const articlelist = (state = {}, action) => {
   switch (action.type) {
@@ -26,12 +26,12 @@ const articlelist = (state = {}, action) => {
         ...state,
         articles: action.payload[1].articles,
         articlesCount: action.payload[1].articlesCount
-      }
+      };
     case FETCH_ARTICLE:
       return {
         ...state,
         article: action.payload.article
-      }
+      };
     case POST_ARTICLE:
       return {
         ...state,
@@ -54,15 +54,13 @@ const articlelist = (state = {}, action) => {
     case DELETE_COMMENT:
       return {
         ...state,
-        comments: [...state.comments].filter(
-          comment => comment.id !== action.payload.commentId
-        )
+        comments: [...state.comments].filter((comment) => comment.id !== action.payload.commentId)
       };
     case DELETE_ARTICLE:
       return {
         ...state,
         redirect: true
-      }
+      };
     case SUBMIT_COMMENT:
     case SUBMIT_ARTICLE:
       return {
